@@ -31,7 +31,13 @@ class ScalateTemplateEngine extends TemplateEngine {
   private def warmup() {
     Scalate.renderJadeString("")(new xitrum.Controller {})
 
-    val tmpFile = File.createTempFile("tmp", ".jade")
+    // Using File.createTempFile may cause error like this:
+    // /private/var/folders/mk/lknymby579qcj5_wx8js461h0000gr/T/scalate-8516439701475108219-workdir/src/var/folders/mk/lknymby579qcj5_wx8js461h0000gr/T/tmp8554675948254167709.jade.scala:2: error: identifier expected but 'var' found.
+    // package var.folders.mk.lknymby579qcj5_wx8js461h0000gr.T
+    //         ^
+    // one error found
+    val tmpFile = new File("scalateTemplateEngineTmpFile.jade")
+    tmpFile.createNewFile()
     Scalate.renderTemplateFile(tmpFile.getAbsolutePath)(new xitrum.Controller {})
     tmpFile.delete()
   }
