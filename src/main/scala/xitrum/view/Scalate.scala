@@ -41,7 +41,7 @@ object Scalate extends Logger {
   {
     ScamlOptions.ugly = Config.productionMode
 
-    List(fileEngine, stringEngine).foreach { engine =>
+    Seq(fileEngine, stringEngine).foreach { engine =>
       engine.bindings = List(
         // import Scalate utilities like "unescape"
         Binding(CONTEXT_BINDING_ID,    classOf[RenderContext].getName, true),
@@ -110,16 +110,6 @@ object Scalate extends Logger {
 
   //----------------------------------------------------------------------------
 
-  /** @param templateType jade, mustache, scaml, or ssp */
-  def renderString(templateContent: String, templateType: String)(implicit controller: Controller): String = {
-    val templateUri = "scalate." + templateType
-    val (context, buffer, out) = createContext(false, controller, templateUri)
-    val template               = new StringTemplateSource(templateUri, templateContent)
-    stringEngine.layout(template, context)
-    out.close()
-    buffer.toString
-  }
-
   def renderJadeString(templateContent: String)(implicit controller: Controller) =
     renderString(templateContent, "jade")(controller)
 
@@ -131,6 +121,16 @@ object Scalate extends Logger {
 
   def renderSspString(templateContent: String)(implicit controller: Controller) =
     renderString(templateContent, "ssp")(controller)
+
+  /** @param templateType jade, mustache, scaml, or ssp */
+  def renderString(templateContent: String, templateType: String)(implicit controller: Controller): String = {
+    val templateUri = "scalate." + templateType
+    val (context, buffer, out) = createContext(false, controller, templateUri)
+    val template               = new StringTemplateSource(templateUri, templateContent)
+    stringEngine.layout(template, context)
+    out.close()
+    buffer.toString
+  }
 
   //----------------------------------------------------------------------------
 
@@ -179,7 +179,7 @@ object Scalate extends Logger {
     if (Config.productionMode)
       renderPrecompiledFile(controller, relPath)
     else
-      renderNotPrecompiledFile(controller, relPath)
+      renderNonPrecompiledFile(controller, relPath)
   }
 
   private def renderPrecompiledFile(controller: Controller, relPath: String): String = {
@@ -202,7 +202,7 @@ object Scalate extends Logger {
     buffer.toString
   }
 
-  private def renderNotPrecompiledFile(controller: Controller, relPath: String): String = {
+  private def renderNonPrecompiledFile(controller: Controller, relPath: String): String = {
     val path = dir + File.separator + relPath
     val file = new File(path)
     if (file.exists()) {
@@ -212,4 +212,17 @@ object Scalate extends Logger {
       renderPrecompiledFile(controller, relPath)
     }
   }
+
+/*
+val normalErrorMsg = e.toString + "\n\n" + e.getStackTraceString
+val errorMsg = if (e.isInstanceOf[org.fusesource.scalate.InvalidSyntaxException]) {
+  val ise = e.asInstanceOf[org.fusesource.scalate.InvalidSyntaxException]
+  val pos = ise.pos
+  "Scalate syntax error: " + ise.source.uri + ", line " + pos.line + "\n" +
+  pos.longString + "\n\n" +
+  normalErrorMsg
+} else {
+  normalErrorMsg
+}
+*/
 }
