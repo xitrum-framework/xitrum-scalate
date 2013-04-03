@@ -26,7 +26,7 @@ Edit build.sbt to use the above plugin and this template engine:
   seq(scalateSettings:_*)
 
   scalateTemplateConfig in Compile := Seq(TemplateConfig(
-    file("src") / "main" / "scalate",  // The dir configured in config/scalate.conf
+    file("src") / "main" / "scalate",  // See config/scalate.conf
     Seq(),
     Seq(Binding("helper", "xitrum.Controller", true))
   ))
