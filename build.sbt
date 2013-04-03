@@ -2,7 +2,7 @@ organization := "tv.cntt"
 
 name := "xitrum-scalate"
 
-version := "1.0-SNAPSHOT"
+version := "1.0"
 
 scalaVersion := "2.10.1"
 
@@ -12,7 +12,11 @@ scalacOptions ++= Seq(
   "-unchecked"
 )
 
-libraryDependencies += "tv.cntt" %% "xitrum" % "1.20" % "provided"
+// Most Scala projects are published to Sonatype, but Sonatype is not default
+// and it takes several hours to sync from Sonatype to Maven Central
+resolvers += "SonatypeReleases" at "http://oss.sonatype.org/content/repositories/releases/"
+
+libraryDependencies += "tv.cntt" %% "xitrum" % "1.21" % "provided"
 
 libraryDependencies += "org.fusesource.scalate" %% "scalate-core" % "1.6.1"
 
