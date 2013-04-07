@@ -2,7 +2,7 @@ organization := "tv.cntt"
 
 name := "xitrum-scalate"
 
-version := "1.0"
+version := "1.1-SNAPSHOT"
 
 scalaVersion := "2.10.1"
 
@@ -16,7 +16,7 @@ scalacOptions ++= Seq(
 // and it takes several hours to sync from Sonatype to Maven Central
 resolvers += "SonatypeReleases" at "http://oss.sonatype.org/content/repositories/releases/"
 
-libraryDependencies += "tv.cntt" %% "xitrum" % "1.22" % "provided"
+libraryDependencies += "tv.cntt" %% "xitrum" % "2.0-SNAPSHOT" % "provided"
 
 libraryDependencies += "org.fusesource.scalate" %% "scalate-core" % "1.6.1"
 
