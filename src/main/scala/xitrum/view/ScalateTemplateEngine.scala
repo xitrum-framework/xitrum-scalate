@@ -2,12 +2,12 @@ package xitrum.view
 
 import java.io.File
 
-import xitrum.{Config, ActionEnv}
+import xitrum.{Config, Action}
 
 class ScalateTemplateEngine extends TemplateEngine {
   warmup()
 
-  def renderTemplate(actionClass: Class[_ <: ActionEnv], action: ActionEnv, options: Map[String, Any]) =
+  def renderTemplate(actionClass: Class[_ <: Action], action: Action, options: Map[String, Any]) =
     Scalate.renderTemplate(actionClass, action, options)
 
   // Scalate takes several seconds to initialize.
@@ -15,9 +15,8 @@ class ScalateTemplateEngine extends TemplateEngine {
   // We take this chance to force Scalate to initialize on startup instead of on
   // the first request.
   private def warmup() {
-    val dummyAction = new ActionEnv {
+    val dummyAction = new Action {
       def execute() {}
-      def onResponded() {}
     }
 
     Scalate.renderJadeString("")(dummyAction)
