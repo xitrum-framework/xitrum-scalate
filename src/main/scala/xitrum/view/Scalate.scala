@@ -55,50 +55,64 @@ object Scalate extends Logger {
   // For ScalateTemplateEngine
 
   /**
-   * Renders Scalate template file
+   * Renders Scalate template file at the path:
+   * <scalateDir>/<class/name/of/the/location>.<templateType>
    *
-   * @param templateFile absolute file path of template
-   * @param action will be imported in the template as "helper"
+   * @param currentAction will be imported in the template as "helper"
    */
-  def renderTemplateFile(templateFile: String)(implicit action: Action): String = {
-    val (context, buffer, out) = createContext(true, action, templateFile)
-    fileEngine.layout(templateFile, context)
-    out.close()
-    buffer.toString
+  def renderView(location: Class[_ <: Action], currentAction: Action, options: Map[String, Any]): String = {
+    val tpe     = templateType(options)
+    val relPath = location.getName.replace('.', File.separatorChar) + "." + tpe
+    Scalate.renderMaybePrecompiledFile(relPath, currentAction)
   }
 
   /**
    * Renders Scalate template file at the path:
-   * <scalateDir>/</class/name/of/the/action>.<templateType>
+   * <scalateDir>/<package/name/of/the/location>/_<fragment>.<templateType>
    *
-   * @param action will be imported in the template as "helper"
+   * @param currentAction will be imported in the template as "helper"
    */
-  def renderTemplate(actionClass: Class[_ <: Action], action: Action, options: Map[String, Any]): String = {
+  def renderFragment(location: Class[_ <: Action], fragment: String, currentAction: Action, options: Map[String, Any]): String = {
     val tpe     = templateType(options)
-    val relPath = actionClass.getName.replace('.', File.separatorChar) + "." + tpe
-    Scalate.renderMaybePrecompiledFile(action, relPath)
+    val relPath = location.getPackage.getName.replace('.', File.separatorChar) + File.separatorChar + "_" + fragment + "." + tpe
+    Scalate.renderMaybePrecompiledFile(relPath, currentAction)
   }
 
   //----------------------------------------------------------------------------
 
-  def renderJadeString(templateContent: String)(implicit action: Action) =
-    renderString(templateContent, "jade")(action)
+  def renderJadeString(templateContent: String)(implicit currentAction: Action) =
+    renderString(templateContent, "jade")(currentAction)
 
-  def renderMustacheString(templateContent: String)(implicit action: Action) =
-    renderString(templateContent, "mustache")(action)
+  def renderMustacheString(templateContent: String)(implicit currentAction: Action) =
+    renderString(templateContent, "mustache")(currentAction)
 
-  def renderScamlString(templateContent: String)(implicit action: Action) =
-    renderString(templateContent, "scaml")(action)
+  def renderScamlString(templateContent: String)(implicit currentAction: Action) =
+    renderString(templateContent, "scaml")(currentAction)
 
-  def renderSspString(templateContent: String)(implicit action: Action) =
-    renderString(templateContent, "ssp")(action)
+  def renderSspString(templateContent: String)(implicit currentAction: Action) =
+    renderString(templateContent, "ssp")(currentAction)
 
   /** @param templateType jade, mustache, scaml, or ssp */
-  def renderString(templateContent: String, templateType: String)(implicit action: Action): String = {
+  def renderString(templateContent: String, templateType: String)(implicit currentAction: Action): String = {
     val templateUri = "scalate." + templateType
-    val (context, buffer, out) = createContext(false, action, templateUri)
+    val (context, buffer, out) = createContext(templateUri, false, currentAction)
     val template               = new StringTemplateSource(templateUri, templateContent)
     stringEngine.layout(template, context)
+    out.close()
+    buffer.toString
+  }
+
+  //----------------------------------------------------------------------------
+
+  /**
+   * Renders Scalate template file
+   *
+   * @param templateFile absolute file path of template
+   * @param currentAction will be imported in the template as "helper"
+   */
+  def renderTemplateFile(templateFile: String)(implicit currentAction: Action): String = {
+    val (context, buffer, out) = createContext(templateFile, true, currentAction)
+    fileEngine.layout(templateFile, context)
     out.close()
     buffer.toString
   }
@@ -112,7 +126,7 @@ object Scalate extends Logger {
   private def templateType(options: Map[String, Any]) =
     options.getOrElse("type", defaultType)
 
-  private def createContext(isFile: Boolean, action: Action, templateUri: String):
+  private def createContext(templateUri: String, isFile: Boolean, currentAction: Action):
     (RenderContext, StringWriter, PrintWriter) = {
     val buffer     = new StringWriter
     val out        = new PrintWriter(buffer)
@@ -121,11 +135,11 @@ object Scalate extends Logger {
     val attributes = context.attributes
 
     // For bindings in engine
-    attributes.update(ACTION_BINDING_ID,  action)
+    attributes.update(ACTION_BINDING_ID,  currentAction)
     attributes.update(CONTEXT_BINDING_ID, context)
 
     // Put action.at to context
-    action.at.foreach { case (k, v) =>
+    currentAction.at.foreach { case (k, v) =>
       if (k == ACTION_BINDING_ID || k == CONTEXT_BINDING_ID)
         logger.warn(
           ACTION_BINDING_ID + " and " + CONTEXT_BINDING_ID +
@@ -146,15 +160,15 @@ object Scalate extends Logger {
    * does not exist, falls back to rendering the precompiled template class.
    * @param action will be imported in the template as "helper"
    */
-  private def renderMaybePrecompiledFile(action: Action, relPath: String): String = {
+  private def renderMaybePrecompiledFile(relPath: String, currentAction: Action): String = {
     if (Config.productionMode)
-      renderPrecompiledFile(action, relPath)
+      renderPrecompiledFile(relPath, currentAction)
     else
-      renderNonPrecompiledFile(action, relPath)
+      renderNonPrecompiledFile(relPath, currentAction)
   }
 
-  private def renderPrecompiledFile(action: Action, relPath: String): String = {
-    val (context, buffer, out) = createContext(true, action, relPath)
+  private def renderPrecompiledFile(relPath: String, currentAction: Action): String = {
+    val (context, buffer, out) = createContext(relPath, true, currentAction)
 
     // In production mode, after being precompiled
     // quickstart/action/AppAction.jade  -> class scalate.quickstart.action.$_scalate_$AppAction_jade
@@ -172,14 +186,14 @@ object Scalate extends Logger {
     buffer.toString
   }
 
-  private def renderNonPrecompiledFile(action: Action, relPath: String): String = {
+  private def renderNonPrecompiledFile(relPath: String, currentAction: Action): String = {
     val path = dir + File.separator + relPath
     val file = new File(path)
     if (file.exists()) {
-      renderTemplateFile(path)(action)
+      renderTemplateFile(path)(currentAction)
     } else {
       // If called from a JAR library, the template may have been precompiled
-      renderPrecompiledFile(action, relPath)
+      renderPrecompiledFile(relPath, currentAction)
     }
   }
 
