@@ -2,12 +2,11 @@ package xitrum.view
 
 import java.io.{File, PrintWriter, StringWriter}
 
-import com.typesafe.config.ConfigFactory
-
 import org.fusesource.scalate.{Binding, DefaultRenderContext, RenderContext, Template, TemplateEngine => STE}
 import org.fusesource.scalate.scaml.ScamlOptions
 import org.fusesource.scalate.support.StringTemplateSource
 
+import com.esotericsoftware.reflectasm.ConstructorAccess
 import org.jboss.netty.handler.codec.serialization.ClassResolvers
 
 import xitrum.{Config, Action, Logger}
@@ -16,7 +15,7 @@ object Scalate extends Logger {
   private[this] val ACTION_BINDING_ID  = "helper"
   private[this] val CONTEXT_BINDING_ID = "context"
 
-  private[this] val application = ConfigFactory.load()
+  private[this] val application = xitrum.Config.application
   private[this] val config      = application.getConfig("scalate")
   private[this] val defaultType = config.getString("defaultType")
   private[this] val dir         = config.getString("dir")
@@ -179,7 +178,7 @@ object Scalate extends Logger {
     val prefix       = xs.take(xs.length - 2).mkString(".")
     val className    = "scalate." + prefix + ".$_scalate_$" + baseFileName + "_" + extension
     val klass        = classResolver.resolve(className)
-    val template     = klass.asInstanceOf[Class[Template]].newInstance()
+    val template     = ConstructorAccess.get(klass).newInstance().asInstanceOf[Template]
     fileEngine.layout(template, context)
 
     out.close()
