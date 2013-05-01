@@ -16,7 +16,7 @@ scalacOptions ++= Seq(
 // and it takes several hours to sync from Sonatype to Maven Central
 resolvers += "SonatypeReleases" at "http://oss.sonatype.org/content/repositories/releases/"
 
-libraryDependencies += "tv.cntt" %% "xitrum" % "2.0" % "provided"
+libraryDependencies += "tv.cntt" %% "xitrum" % "2.5-SNAPSHOT" % "provided"
 
 libraryDependencies += "org.fusesource.scalate" %% "scalate-core" % "1.6.1"
 
