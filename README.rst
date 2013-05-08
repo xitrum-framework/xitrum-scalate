@@ -50,7 +50,7 @@ Edit xitrum.conf to use this template engine:
 
 ::
 
-  templateEngine = xitrum.view.ScalateTemplateEngine
+  templateEngine = xitrum.view.Scalate
 
 defaultType
 ~~~~~~~~~~~

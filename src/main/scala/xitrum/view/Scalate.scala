@@ -11,7 +11,7 @@ import org.jboss.netty.handler.codec.serialization.ClassResolvers
 
 import xitrum.{Config, Action, Logger}
 
-class ScalateTemplateEngine extends TemplateEngine {
+class Scalate extends TemplateEngine {
   // Scalate takes several seconds to initialize.
   // On Xitrum startup, an instance of the configured template engine is created.
   // We take this chance to force Scalate to initialize on startup instead of on
@@ -23,7 +23,7 @@ class ScalateTemplateEngine extends TemplateEngine {
       def execute() {}
     }
 
-    ScalateTemplateEngine.renderJadeString("")(dummyAction)
+    Scalate.renderJadeString("")(dummyAction)
 
     // Using File.createTempFile may cause error like this:
     // /private/var/folders/mk/lknymby579qcj5_wx8js461h0000gr/T/scalate-8516439701475108219-workdir/src/var/folders/mk/lknymby579qcj5_wx8js461h0000gr/T/tmp8554675948254167709.jade.scala:2: error: identifier expected but 'var' found.
@@ -32,7 +32,7 @@ class ScalateTemplateEngine extends TemplateEngine {
     // one error found
     val tmpFile = new File("scalateTemplateEngineTmpFile.jade")
     tmpFile.createNewFile()
-    ScalateTemplateEngine.renderTemplateFile(tmpFile.getAbsolutePath)(dummyAction)
+    Scalate.renderTemplateFile(tmpFile.getAbsolutePath)(dummyAction)
     tmpFile.delete()
   }
 
@@ -51,7 +51,7 @@ class ScalateTemplateEngine extends TemplateEngine {
    * @param options specific to the configured template engine
    */
   def renderView(location: Class[_ <: Action], currentAction: Action, options: Map[String, Any]): String =
-    ScalateTemplateEngine.renderView(location, currentAction, options)
+    Scalate.renderView(location, currentAction, options)
 
   /**
    * Renders the template at the location identified by the package of the given
@@ -69,10 +69,10 @@ class ScalateTemplateEngine extends TemplateEngine {
    * @param options specific to the configured template engine
    */
   def renderFragment(location: Class[_ <: Action], fragment: String, currentAction: Action, options: Map[String, Any]): String =
-    ScalateTemplateEngine.renderFragment(location, fragment, currentAction, options)
+    Scalate.renderFragment(location, fragment, currentAction, options)
 }
 
-object ScalateTemplateEngine extends Logger {
+object Scalate extends Logger {
   private[this] val ACTION_BINDING_ID  = "helper"
   private[this] val CONTEXT_BINDING_ID = "context"
 
@@ -112,7 +112,7 @@ object ScalateTemplateEngine extends Logger {
   }
 
   //----------------------------------------------------------------------------
-  // For ScalateTemplateEngine
+  // For Scalate class
 
   def renderView(location: Class[_ <: Action], currentAction: Action, options: Map[String, Any]): String = {
     val tpe     = templateType(options)
