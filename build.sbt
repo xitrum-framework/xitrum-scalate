@@ -4,7 +4,7 @@ name := "xitrum-scalate"
 
 version := "1.2-SNAPSHOT"
 
-scalaVersion := "2.10.1"
+scalaVersion := "2.10.2"
 
 scalacOptions ++= Seq(
   "-deprecation",
@@ -16,7 +16,7 @@ scalacOptions ++= Seq(
 // and it takes several hours to sync from Sonatype to Maven Central
 resolvers += "SonatypeReleases" at "http://oss.sonatype.org/content/repositories/releases/"
 
-libraryDependencies += "tv.cntt" %% "xitrum" % "2.5" % "provided"
+libraryDependencies += "tv.cntt" %% "xitrum" % "2.6" % "provided"
 
 libraryDependencies += "org.fusesource.scalate" %% "scalate-core" % "1.6.1"
 
