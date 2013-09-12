@@ -20,7 +20,7 @@ Edit build.sbt to use the above plugin and this template engine:
   import ScalateKeys._
 
   // Template engine for Xitrum
-  libraryDependencies += "tv.cntt" %% "xitrum-scalate" % "1.1"
+  libraryDependencies += "tv.cntt" %% "xitrum-scalate" % "1.2"
 
   // Precompile Scalate
   seq(scalateSettings:_*)
