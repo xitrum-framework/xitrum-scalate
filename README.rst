@@ -36,13 +36,17 @@ Edit xitrum.conf:
 
 ::
 
-  template {
-    engine  = xitrum.view.Scalate
+  xitrum {
+    ...
+    template {
+      engine = xitrum.view.Scalate
 
-    # The below are dependent on the above template engine;
-    # If you change the engine, you need to change the below,
-    # see the doc of the chosen engine
-    scalateDefaultType = jade  # jade, mustache, scaml, or ssp
+      # The below are dependent on the above template engine;
+      # If you change the engine, you need to change the below,
+      # see the doc of the chosen engine
+      scalateDefaultType = jade  # jade, mustache, scaml, or ssp
+    }
+    ...
   }
 
 scalateDefaultType
