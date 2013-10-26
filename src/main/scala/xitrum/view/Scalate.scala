@@ -40,8 +40,9 @@ class Scalate extends TemplateEngine {
    * Renders the template at the location identified by the given action class:
    * <scalateDir>/<class/name/of/the/location>.<templateType>
    *
-   * Ex: When location = myapp.SiteIndex,
-   * by default the template path will be:
+   * Ex:
+   * When location = myapp.SiteIndex,
+   * the template path will be:
    * src/main/scalate/myapp/SiteIndex.jade
    *
    * @param location the action class used to identify the template location
@@ -58,8 +59,9 @@ class Scalate extends TemplateEngine {
    * action class and the given fragment:
    * <scalateDir>/<package/name/of/the/location>/_<fragment>.<templateType>
    *
-   * Ex: When location = myapp.ArticleNew, fragment = form,
-   * by default the template path will be:
+   * Ex:
+   * When location = myapp.ArticleNew, fragment = form,
+   * the template path will be:
    * src/main/scalate/myapp/_form.jade
    *
    * @param location the action class used to identify the template location
@@ -75,11 +77,11 @@ class Scalate extends TemplateEngine {
 object Scalate extends Logger {
   private[this] val ACTION_BINDING_ID  = "helper"
   private[this] val CONTEXT_BINDING_ID = "context"
+  private[this] val TEMPLATE_DIR       = "src/main/scalate"
 
   private[this] val application = xitrum.Config.application
-  private[this] val config      = application.getConfig("scalate")
-  private[this] val defaultType = config.getString("defaultType")
-  private[this] val dir         = config.getString("dir")
+  private[this] val config      = application.getConfig("xitrum.template")
+  private[this] val defaultType = config.getString("scalateDefaultType")
 
   private[this] val classResolver = ClassResolvers.softCachingConcurrentResolver(getClass.getClassLoader)
 
@@ -204,8 +206,9 @@ object Scalate extends Logger {
 
   /**
    * Production mode: Renders the precompiled template class.
-   * Development mode: Renders Scalate template file relative to dir. If the file
-   * does not exist, falls back to rendering the precompiled template class.
+   * Development mode: Renders Scalate template file relative to TEMPLATE_DIR.
+   * If the file does not exist, falls back to rendering the precompiled template class.
+   *
    * @param action will be imported in the template as "helper"
    */
   private def renderMaybePrecompiledFile(relPath: String, currentAction: Action): String = {
@@ -235,7 +238,7 @@ object Scalate extends Logger {
   }
 
   private def renderNonPrecompiledFile(relPath: String, currentAction: Action): String = {
-    val path = dir + File.separator + relPath
+    val path = TEMPLATE_DIR + File.separator + relPath
     val file = new File(path)
     if (file.exists()) {
       renderTemplateFile(path)(currentAction)

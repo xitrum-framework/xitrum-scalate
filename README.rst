@@ -12,53 +12,46 @@ Edit your Xitrum project's project/plugins.sbt:
   // For compiling Scalate templates
   addSbtPlugin("com.mojolly.scalate" % "xsbt-scalate-generator" % "0.4.2")
 
-Edit build.sbt to use the above plugin and this template engine:
+Edit build.sbt:
 
 ::
 
+  // Scalate template engine config for Xitrum
   // "import" must be at top of build.sbt, or SBT will complain
   import ScalateKeys._
 
   // Template engine for Xitrum
-  libraryDependencies += "tv.cntt" %% "xitrum-scalate" % "1.2"
+  libraryDependencies += "tv.cntt" %% "xitrum-scalate" % "1.3"
 
   // Precompile Scalate
   seq(scalateSettings:_*)
 
   scalateTemplateConfig in Compile := Seq(TemplateConfig(
-    file("src") / "main" / "scalate",  // See config/scalate.conf
+    file("src") / "main" / "scalate",
     Seq(),
     Seq(Binding("helper", "xitrum.Controller", true))
   ))
 
-Add config/scalate.conf file:
+Edit xitrum.conf:
 
 ::
 
-  scalate {
-    defaultType = jade              # jade, mustache, scaml, or ssp
-    dir         = src/main/scalate  # Only used in development mode
+  template {
+    engine  = xitrum.view.Scalate
+
+    # The below are dependent on the above template engine;
+    # If you change the engine, you need to change the below,
+    # see the doc of the chosen engine
+    scalateDefaultType = jade  # jade, mustache, scaml, or ssp
   }
 
-Edit config/application.conf to include the file above:
+scalateDefaultType
+~~~~~~~~~~~~~~~~~~
 
-::
-
-  include "scalate"
-
-Edit xitrum.conf to use this template engine:
-
-::
-
-  templateEngine = xitrum.view.Scalate
-
-defaultType
-~~~~~~~~~~~
-
-In scalate.conf, you config "defaultType".
+In xitrum.conf, you config "scalateDefaultType" (see above).
 
 When calling Xitrum's renderView method, if you want to use template type other
-than defaultType, set the last argument (options) like this:
+than scalateDefaultType, set the last argument (options) like this:
 
 ::
 
