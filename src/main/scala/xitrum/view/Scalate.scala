@@ -9,7 +9,7 @@ import org.fusesource.scalate.support.StringTemplateSource
 import com.esotericsoftware.reflectasm.ConstructorAccess
 import org.jboss.netty.handler.codec.serialization.ClassResolvers
 
-import xitrum.{Config, Action, Logger}
+import xitrum.{Config, Action, Log}
 
 class Scalate extends TemplateEngine {
   // Scalate takes several seconds to initialize.
@@ -74,7 +74,7 @@ class Scalate extends TemplateEngine {
     Scalate.renderFragment(location, fragment, currentAction, options)
 }
 
-object Scalate extends Logger {
+object Scalate extends Log {
   private[this] val ACTION_BINDING_ID  = "helper"
   private[this] val CONTEXT_BINDING_ID = "context"
   private[this] val TEMPLATE_DIR       = "src/main/scalate"
@@ -191,7 +191,7 @@ object Scalate extends Logger {
     // Put action.at to context
     currentAction.at.foreach { case (k, v) =>
       if (k == ACTION_BINDING_ID || k == CONTEXT_BINDING_ID)
-        logger.warn(
+        log.warn(
           ACTION_BINDING_ID + " and " + CONTEXT_BINDING_ID +
           " are reserved key names for action's \"at\""
         )
