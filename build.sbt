@@ -26,15 +26,16 @@ libraryDependencies += "org.fusesource.scalate" %% "scalate-core" % "1.6.1"
 libraryDependencies += "org.fusesource.scalamd" %% "scalamd" % "1.6"
 
 //------------------------------------------------------------------------------
-// Scalate 1.6.1 uses scala-compiler (which in turn uses scala-reflect) 2.10.0.
+// Scalate 1.6.1 uses scala-compiler 2.10.0, which in turn uses scala-reflect 2.10.0.
 // Force a newer version, scalaVersion above.
 //
-// We should release a new version of xitrum-scalate every time a new version of
-// Scala is released.
+// However, Xitrum uses JSON4S, which in turn uses scalap 2.10.0, which in turn
+// uses scala-compiler 2.10.0. So by forcing a newer version of scalap in Xitrum,
+// we do not have to do anything here.
 
-libraryDependencies <+= scalaVersion { sv =>
-  "org.scala-lang" % "scala-compiler" % sv
-}
+//libraryDependencies <+= scalaVersion { sv =>
+//  "org.scala-lang" % "scala-compiler" % sv
+//}
 
 //------------------------------------------------------------------------------
 
