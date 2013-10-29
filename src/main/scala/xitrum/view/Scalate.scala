@@ -12,13 +12,10 @@ import org.jboss.netty.handler.codec.serialization.ClassResolvers
 import xitrum.{Config, Action, Log}
 
 class Scalate extends TemplateEngine {
-  // Scalate takes several seconds to initialize.
-  // On Xitrum startup, an instance of the configured template engine is created.
-  // We take this chance to force Scalate to initialize on startup instead of on
-  // the first request.
-  warmup()
+  def start() {
+    // Scalate takes several seconds to initialize
+    // => Warm it up here
 
-  private def warmup() {
     val dummyAction = new Action {
       def execute() {}
     }
@@ -35,6 +32,8 @@ class Scalate extends TemplateEngine {
     Scalate.renderTemplateFile(tmpFile.getAbsolutePath)(dummyAction)
     tmpFile.delete()
   }
+
+  def stop() {}
 
   /**
    * Renders the template at the location identified by the given action class:
