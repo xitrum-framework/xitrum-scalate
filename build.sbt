@@ -26,6 +26,17 @@ libraryDependencies += "org.fusesource.scalate" %% "scalate-core" % "1.6.1"
 libraryDependencies += "org.fusesource.scalamd" %% "scalamd" % "1.6"
 
 //------------------------------------------------------------------------------
+// Scalate 1.6.1 uses scala-compiler (which in turn uses scala-reflect) 2.10.0.
+// Force a newer version, scalaVersion above.
+//
+// We should release a new version of xitrum-scalate every time a new version of
+// Scala is released.
+
+libraryDependencies <+= scalaVersion { sv =>
+  "org.scala-lang" % "scala-compiler" % sv
+}
+
+//------------------------------------------------------------------------------
 
 // Skip API doc generation to speedup "publish-local" while developing.
 // Comment out this line when publishing to Sonatype.
