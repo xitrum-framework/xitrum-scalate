@@ -39,19 +39,20 @@ Edit xitrum.conf:
   xitrum {
     ...
     template {
-      engine = xitrum.view.Scalate
-      scalateDefaultType = jade  # jade, mustache, scaml, or ssp
+      "xitrum.view.Scalate" {
+        defaultType = jade  # jade, mustache, scaml, or ssp
+      }
     }
     ...
   }
 
-scalateDefaultType
-~~~~~~~~~~~~~~~~~~
+defaultType
+~~~~~~~~~~~
 
-In xitrum.conf, you config "scalateDefaultType" (see above).
+In xitrum.conf, you config "defaultType" (see above).
 
 When calling Xitrum's renderView method, if you want to use template type other
-than scalateDefaultType, set the last argument (options) like this:
+than the defaultType, set the last argument (options) like this:
 
 ::
 

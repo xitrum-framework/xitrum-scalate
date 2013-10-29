@@ -79,9 +79,7 @@ object Scalate extends Log {
   private[this] val CONTEXT_BINDING_ID = "context"
   private[this] val TEMPLATE_DIR       = "src/main/scalate"
 
-  private[this] val application = xitrum.Config.application
-  private[this] val config      = application.getConfig("xitrum.template")
-  private[this] val defaultType = config.getString("scalateDefaultType")
+  private[this] val defaultType = Config.xitrum.config.getString("template.\"" + classOf[Scalate].getName + "\".defaultType")
 
   private[this] val classResolver = ClassResolvers.softCachingConcurrentResolver(getClass.getClassLoader)
 
