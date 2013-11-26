@@ -163,6 +163,20 @@ object Scalate extends Log {
     out.close()
     buffer.toString
   }
+  
+  /**
+   * Renders precompiled Scalate template
+   *
+   * @param template template object
+   * @param templateUri uri to identify a template
+   * @param currentAction will be imported in the template as "helper"
+   */
+  def renderTemplate(template: Template, templateUri: String = "precompiled_template")(implicit currentAction: Action): String = {
+    val (context, buffer, out) = createContext(templateUri, true, currentAction)
+    fileEngine.layout(template, context)
+    out.close()
+    buffer.toString
+  }
 
   //----------------------------------------------------------------------------
 
@@ -216,8 +230,6 @@ object Scalate extends Log {
   }
 
   private def renderPrecompiledFile(relPath: String, currentAction: Action): String = {
-    val (context, buffer, out) = createContext(relPath, true, currentAction)
-
     // In production mode, after being precompiled
     // quickstart/action/AppAction.jade  -> class scalate.quickstart.action.$_scalate_$AppAction_jade
     val withDots     = relPath.replace('/', '.').replace(File.separatorChar, '.')
@@ -228,10 +240,8 @@ object Scalate extends Log {
     val className    = "scalate." + prefix + ".$_scalate_$" + baseFileName + "_" + extension
     val klass        = classResolver.resolve(className)
     val template     = ConstructorAccess.get(klass).newInstance().asInstanceOf[Template]
-    fileEngine.layout(template, context)
-
-    out.close()
-    buffer.toString
+    
+    renderTemplate(template, relPath)(currentAction)
   }
 
   private def renderNonPrecompiledFile(relPath: String, currentAction: Action): String = {
