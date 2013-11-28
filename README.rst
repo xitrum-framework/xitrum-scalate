@@ -2,6 +2,9 @@ Xitrum allows you to choose template engines.
 This library is a template engine for Xitrum.
 It wraps `Scalate <http://scalate.fusesource.org/>`_.
 
+See CHANGELOG to know which version of xitrum-scalate to use for which version
+of Xitrum.
+
 Config your Xitrum project to use this template engine
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -21,7 +24,7 @@ Edit build.sbt:
   import ScalateKeys._
 
   // Template engine for Xitrum
-  libraryDependencies += "tv.cntt" %% "xitrum-scalate" % "1.3"
+  libraryDependencies += "tv.cntt" %% "xitrum-scalate" % "1.4"
 
   // Precompile Scalate
   seq(scalateSettings:_*)
