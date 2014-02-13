@@ -24,7 +24,7 @@ Edit build.sbt:
   import ScalateKeys._
 
   // Template engine for Xitrum
-  libraryDependencies += "tv.cntt" %% "xitrum-scalate" % "1.5"
+  libraryDependencies += "tv.cntt" %% "xitrum-scalate" % "1.6"
 
   // Precompile Scalate
   seq(scalateSettings:_*)
