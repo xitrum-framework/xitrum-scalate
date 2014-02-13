@@ -22,15 +22,8 @@ class Scalate extends TemplateEngine {
 
     Scalate.renderJadeString("")(dummyAction)
 
-    // Using File.createTempFile may cause error like this:
-    // /private/var/folders/mk/lknymby579qcj5_wx8js461h0000gr/T/scalate-8516439701475108219-workdir/src/var/folders/mk/lknymby579qcj5_wx8js461h0000gr/T/tmp8554675948254167709.jade.scala:2: error: identifier expected but 'var' found.
-    // package var.folders.mk.lknymby579qcj5_wx8js461h0000gr.T
-    // ^
-    // one error found
-    val tmpFile = new File("scalateTemplateEngineTmpFile.jade")
-    tmpFile.createNewFile()
-    Scalate.renderTemplateFile(tmpFile.getAbsolutePath)(dummyAction)
-    tmpFile.delete()
+    // Can't warmup Scalate.renderTemplateFile:
+    // https://github.com/ngocdaothanh/xitrum-scalate/issues/6
   }
 
   def stop() {}
@@ -163,7 +156,7 @@ object Scalate extends Log {
     out.close()
     buffer.toString
   }
-  
+
   /**
    * Renders precompiled Scalate template
    *
@@ -240,7 +233,7 @@ object Scalate extends Log {
     val className    = "scalate." + prefix + ".$_scalate_$" + baseFileName + "_" + extension
     val klass        = classResolver.resolve(className)
     val template     = ConstructorAccess.get(klass).newInstance().asInstanceOf[Template]
-    
+
     renderTemplate(template, relPath)(currentAction)
   }
 
