@@ -247,17 +247,4 @@ object Scalate extends Log {
       renderPrecompiledFile(relPath, currentAction)
     }
   }
-
-/*
-val normalErrorMsg = e.toString + "\n\n" + e.getStackTraceString
-val errorMsg = if (e.isInstanceOf[org.fusesource.scalate.InvalidSyntaxException]) {
-  val ise = e.asInstanceOf[org.fusesource.scalate.InvalidSyntaxException]
-  val pos = ise.pos
-  "Scalate syntax error: " + ise.source.uri + ", line " + pos.line + "\n" +
-  pos.longString + "\n\n" +
-  normalErrorMsg
-} else {
-  normalErrorMsg
-}
-*/
 }
