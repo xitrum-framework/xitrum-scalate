@@ -11,65 +11,22 @@ import org.jboss.netty.handler.codec.serialization.ClassResolvers
 
 import xitrum.{Config, Action, Log}
 
-class Scalate extends TemplateEngine {
-  private var engine: ScalateEngine = _
-
-  def start() {
-    val templateDir = "src/main/scalate"
-    val allowReload = !Config.productionMode
-    val className   = classOf[Scalate].getName
-    val defaultType = Config.xitrum.config.getString("template.\"" + className + "\".defaultType")
-
-    engine = new ScalateEngine(templateDir, allowReload, defaultType)
-
+class Scalate extends ScalateEngine(
+  "src/main/scalate",
+  !Config.productionMode,
+  Config.xitrum.config.getString("template.\"" + classOf[Scalate].getName + "\".defaultType")
+) {
+  override def start() {
     // Scalate takes several seconds to initialize => Warm it up here
-    warmup()
-  }
 
-  def stop() {}
-
-  /**
-   * Renders the template at the location identified by the given action class:
-   * {{{<scalateDir>/<class/name/of/the/location>.<templateType>}}}
-   *
-   * Ex:
-   * When location = myapp.SiteIndex,
-   * the template path will be:
-   * src/main/scalate/myapp/SiteIndex.jade
-   *
-   * @param location      Action class used to identify the template location
-   * @param currentAction Will be imported in the template as "helper"
-   * @param options       Specific to the configured template engine
-   */
-  def renderView(location: Class[_ <: Action], currentAction: Action, options: Map[String, Any]): String =
-    engine.renderView(location, currentAction, options)
-
-  /**
-   * Renders the template at the location identified by the package of the given
-   * action class and the given fragment:
-   * {{{<scalateDir>/<package/name/of/the/location>/_<fragment>.<templateType>}}}
-   *
-   * Ex:
-   * When location = myapp.ArticleNew, fragment = form,
-   * the template path will be:
-   * src/main/scalate/myapp/_form.jade
-   *
-   * @param location      Action class used to identify the template location
-   * @param currentAction Will be imported in the template as "helper"
-   * @param options       Specific to the configured template engine
-   */
-  def renderFragment(location: Class[_ <: Action], fragment: String, currentAction: Action, options: Map[String, Any]): String =
-    engine.renderFragment(location, fragment, currentAction, options)
-
-  private def warmup() {
     val dummyAction = new Action {
       def execute() {}
     }
 
-    engine.renderJadeString("")(dummyAction)
-    engine.renderMustacheString("")(dummyAction)
-    engine.renderScamlString("")(dummyAction)
-    engine.renderSspString("")(dummyAction)
+    renderJadeString("")(dummyAction)
+    renderMustacheString("")(dummyAction)
+    renderScamlString("")(dummyAction)
+    renderSspString("")(dummyAction)
 
     // Can't warmup Scalate.renderTemplateFile:
     // https://github.com/ngocdaothanh/xitrum-scalate/issues/6
@@ -88,7 +45,7 @@ object ScalateEngine {
  * @param allowReload Template files in templateDir will be reloaded every time
  * @param defaultType "jade", "mustache", "scaml", or "ssp"
  */
-class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: String) extends Log {
+class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: String) extends TemplateEngine with Log {
   import ScalateEngine._
 
   private[this] val fileEngine = {
@@ -118,14 +75,44 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
   }
 
   //----------------------------------------------------------------------------
-  // For Scalate class
+  // TemplateEngine methods
 
+  def start() {}
+  def stop() {}
+
+  /**
+   * Renders the template at the location identified by the given action class:
+   * {{{<scalateDir>/<class/name/of/the/location>.<templateType>}}}
+   *
+   * Ex:
+   * When location = myapp.SiteIndex,
+   * the template path will be:
+   * src/main/scalate/myapp/SiteIndex.jade
+   *
+   * @param location      Action class used to identify the template location
+   * @param currentAction Will be imported in the template as "helper"
+   * @param options       Specific to the configured template engine
+   */
   def renderView(location: Class[_ <: Action], currentAction: Action, options: Map[String, Any]): String = {
     val tpe     = templateType(options)
     val relPath = location.getName.replace('.', File.separatorChar) + "." + tpe
     renderMaybePrecompiledFile(relPath, currentAction)
   }
 
+  /**
+   * Renders the template at the location identified by the package of the given
+   * action class and the given fragment:
+   * {{{<scalateDir>/<package/name/of/the/location>/_<fragment>.<templateType>}}}
+   *
+   * Ex:
+   * When location = myapp.ArticleNew, fragment = form,
+   * the template path will be:
+   * src/main/scalate/myapp/_form.jade
+   *
+   * @param location      Action class used to identify the template location
+   * @param currentAction Will be imported in the template as "helper"
+   * @param options       Specific to the configured template engine
+   */
   def renderFragment(location: Class[_ <: Action], fragment: String, currentAction: Action, options: Map[String, Any]): String = {
     val tpe     = templateType(options)
     val relPath = location.getPackage.getName.replace('.', File.separatorChar) + File.separatorChar + "_" + fragment + "." + tpe
@@ -133,6 +120,7 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
   }
 
   //----------------------------------------------------------------------------
+  // Additional utility methods
 
   def renderJadeString(templateContent: String)(implicit currentAction: Action) =
     renderString(templateContent, "jade")(currentAction)
@@ -157,6 +145,7 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
   }
 
   //----------------------------------------------------------------------------
+  // Additional utility methods
 
   /**
    * Renders Scalate template file.
