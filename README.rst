@@ -60,3 +60,22 @@ than the defaultType, set the last argument (options) like this:
 ::
 
    renderView(Map("type" -> "mustache")
+
+Other utility methods
+~~~~~~~~~~~~~~~~~~~~~
+
+xitrum.view.Scalate also provides some utility methods so that you can easily
+use Scalate features. See the `API doc <http://ngocdaothanh.github.io/xitrum-scalate/>`_.
+
+Ex:
+
+::
+
+  import xitrum.Config
+  import xitrum.view.Scalate
+
+  // In your action:
+  val scalate  = Config.xitrum.template.get.asInstanceOf[Scalate]
+  val template = "p This Jade template is from a string, not from a file."
+  val string   = scalate.renderJadeString(template)
+  respondInlineView(string)
