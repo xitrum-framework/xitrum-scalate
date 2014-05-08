@@ -2,9 +2,9 @@ organization := "tv.cntt"
 
 name := "xitrum-scalate"
 
-version := "1.8-SNAPSHOT"
+version := "1.9-SNAPSHOT"
 
-scalaVersion := "2.10.4"
+scalaVersion := "2.11.0"
 
 scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked")
 
@@ -15,19 +15,19 @@ javacOptions ++= Seq("-source", "1.7", "-target", "1.7")
 // and it takes several hours to sync from Sonatype to Maven Central
 resolvers += "SonatypeReleases" at "http://oss.sonatype.org/content/repositories/releases/"
 
-libraryDependencies += "tv.cntt" %% "xitrum" % "3.4" % "provided"
+libraryDependencies += "tv.cntt" %% "xitrum" % "3.11" % "provided"
 
-libraryDependencies += "org.fusesource.scalate" %% "scalate-core" % "1.6.1"
+libraryDependencies += "org.scalatra.scalate" %% "scalate-core" % "1.7.0"
 
 // For Markdown
-libraryDependencies += "org.fusesource.scalamd" %% "scalamd" % "1.6"
+libraryDependencies += "org.scalatra.scalate" %% "scalamd" % "1.6.1"
 
 //------------------------------------------------------------------------------
-// Scalate 1.6.1 uses scala-compiler 2.10.0, which in turn uses scala-reflect 2.10.0.
+// Scalate 1.7.0 uses scala-compiler 2.11.0, which in turn uses scala-reflect 2.11.0.
 // Force a newer version, scalaVersion above.
 //
-// However, Xitrum uses JSON4S, which in turn uses scalap 2.10.0, which in turn
-// uses scala-compiler 2.10.0. So by forcing a newer version of scalap in Xitrum,
+// However, Xitrum uses JSON4S, which in turn uses scalap 2.11.0, which in turn
+// uses scala-compiler 2.11.0. So by forcing a newer version of scalap in Xitrum,
 // we do not have to do anything here.
 
 //libraryDependencies <+= scalaVersion { sv =>
