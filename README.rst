@@ -65,7 +65,7 @@ Other utility methods
 ~~~~~~~~~~~~~~~~~~~~~
 
 xitrum.view.Scalate also provides some utility methods so that you can easily
-use Scalate features. See the `API doc <http://ngocdaothanh.github.io/xitrum-scalate/>`_.
+use Scalate features. See the `API doc <http://xitrum-framework.github.io/xitrum-scalate/>`_.
 
 Ex:
 

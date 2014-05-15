@@ -29,7 +29,7 @@ class Scalate extends ScalateEngine(
     renderSspString("")(dummyAction)
 
     // Can't warmup Scalate.renderTemplateFile:
-    // https://github.com/ngocdaothanh/xitrum-scalate/issues/6
+    // https://github.com/xitrum-framework/xitrum-scalate/issues/6
   }
 }
 
