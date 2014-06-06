@@ -12,24 +12,20 @@ Edit your Xitrum project's project/plugins.sbt:
 
 ::
 
-  // For compiling Scalate templates
-  addSbtPlugin("com.mojolly.scalate" % "xsbt-scalate-generator" % "0.4.2")
+  // For precompiling Scalate templates
+  addSbtPlugin("com.mojolly.scalate" % "xsbt-scalate-generator" % "0.5.0")
 
 Edit build.sbt:
 
 ::
 
-  // Scalate template engine config for Xitrum
-  // "import" must be at top of build.sbt, or SBT will complain
-  import ScalateKeys._
-
   // Template engine for Xitrum
-  libraryDependencies += "tv.cntt" %% "xitrum-scalate" % "1.9"
+  libraryDependencies += "tv.cntt" %% "xitrum-scalate" % "1.10"
 
-  // Precompile Scalate
+  // Precompile Scalate templates
   seq(scalateSettings:_*)
 
-  scalateTemplateConfig in Compile := Seq(TemplateConfig(
+  ScalateKeys.scalateTemplateConfig in Compile := Seq(TemplateConfig(
     file("src") / "main" / "scalate",
     Seq(),
     Seq(Binding("helper", "xitrum.Controller", true))
