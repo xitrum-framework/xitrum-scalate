@@ -73,8 +73,8 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
 
   def stop() {}
 
-  // This method is only called in development mode, thus synchronization is
-  // not needed.
+  // This method is only called in development mode, thus synchronization for
+  // the engines is not needed.
   def reloadOnNextRender() {
     fileEngine.shutdown()
     stringEngine.shutdown()
