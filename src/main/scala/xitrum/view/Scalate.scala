@@ -48,30 +48,23 @@ object ScalateEngine {
 class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: String) extends TemplateEngine with Log {
   import ScalateEngine._
 
-  private[this] val fileEngine = {
+  private[this] val fileEngine   = createEngine(true, allowReload)
+  private[this] val stringEngine = createEngine(false, false)
+
+  private def createEngine(allowCaching: Boolean, allowReload: Boolean): STE = {
     val ret = new STE
-    ret.allowCaching = true
+    ret.allowCaching = allowCaching
     ret.allowReload  = allowReload
+
+    ret.bindings = List(
+      // import things in the current action
+      Binding(ACTION_BINDING_ID, classOf[Action].getName, true),
+
+      // import Scalate utilities like "unescape"
+      Binding(CONTEXT_BINDING_ID, classOf[RenderContext].getName, true)
+    )
+
     ret
-  }
-
-  private[this] val stringEngine = {
-    val ret = new STE
-    ret.allowCaching = false
-    ret.allowReload  = false
-    ret
-  }
-
-  {
-    Seq(fileEngine, stringEngine).foreach { engine =>
-      engine.bindings = List(
-        // import things in the current action
-        Binding(ACTION_BINDING_ID, classOf[Action].getName, true),
-
-        // import Scalate utilities like "unescape"
-        Binding(CONTEXT_BINDING_ID, classOf[RenderContext].getName, true)
-      )
-    }
   }
 
   //----------------------------------------------------------------------------
@@ -137,7 +130,7 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
   /** @param templateType jade, mustache, scaml, or ssp */
   def renderString(templateContent: String, templateType: String)(implicit currentAction: Action): String = {
     val templateUri            = "scalate." + templateType
-    val (context, buffer, out) = createContext(templateUri, false, currentAction)
+    val (context, buffer, out) = createContext(templateUri, stringEngine, currentAction)
     val template               = new StringTemplateSource(templateUri, templateContent)
     stringEngine.layout(template, context)
     out.close()
@@ -154,7 +147,7 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
    * @param currentAction Will be imported in the template as "helper"
    */
   def renderTemplateFile(templateFile: String)(implicit currentAction: Action): String = {
-    val (context, buffer, out) = createContext(templateFile, true, currentAction)
+    val (context, buffer, out) = createContext(templateFile, fileEngine, currentAction)
     fileEngine.layout(templateFile, context)
     out.close()
     buffer.toString
@@ -168,7 +161,7 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
    * @param currentAction Will be imported in the template as "helper"
    */
   def renderTemplate(template: Template, templateUri: String = "precompiled_template")(implicit currentAction: Action): String = {
-    val (context, buffer, out) = createContext(templateUri, true, currentAction)
+    val (context, buffer, out) = createContext(templateUri, fileEngine, currentAction)
     fileEngine.layout(template, context)
     out.close()
     buffer.toString
@@ -184,12 +177,11 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
     options.getOrElse("type", defaultType).asInstanceOf[String]
 
   private def createContext(
-    templateUri: String, isFile: Boolean, currentAction: Action
+    templateUri: String, engine: STE, currentAction: Action
   ): (RenderContext, StringWriter, PrintWriter) =
   {
     val buffer     = new StringWriter
     val out        = new PrintWriter(buffer)
-    val engine     = if (isFile) fileEngine else stringEngine
     val context    = new DefaultRenderContext(templateUri, engine, out)
     val attributes = context.attributes
 
