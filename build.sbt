@@ -2,7 +2,7 @@ organization := "tv.cntt"
 
 name := "xitrum-scalate"
 
-version := "1.10-SNAPSHOT"
+version := "2.0-SNAPSHOT"
 
 scalaVersion := "2.11.1"
 

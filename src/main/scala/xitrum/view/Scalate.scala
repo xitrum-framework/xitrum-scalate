@@ -16,9 +16,8 @@ class Scalate extends ScalateEngine(
   !Config.productionMode,
   Config.xitrum.config.getString("template.\"" + classOf[Scalate].getName + "\".defaultType")
 ) {
+  // Scalate takes several seconds to initialize => Warm it up here
   override def start() {
-    // Scalate takes several seconds to initialize => Warm it up here
-
     val dummyAction = new Action {
       def execute() {}
     }
@@ -48,11 +47,11 @@ object ScalateEngine {
 class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: String) extends TemplateEngine with Log {
   import ScalateEngine._
 
-  private[this] val fileEngine   = createEngine(true, allowReload)
-  private[this] val stringEngine = createEngine(false, false)
+  private[this] var fileEngine   = createEngine(true,  allowReload)
+  private[this] var stringEngine = createEngine(false, false)
 
   private def createEngine(allowCaching: Boolean, allowReload: Boolean): STE = {
-    val ret = new STE
+    val ret          = new STE
     ret.allowCaching = allowCaching
     ret.allowReload  = allowReload
 
@@ -71,7 +70,13 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
   // TemplateEngine methods
 
   def start() {}
+
   def stop() {}
+
+  def reloadOnNextRender() {
+    fileEngine   = createEngine(true,  allowReload)
+    stringEngine = createEngine(false, false)
+  }
 
   /**
    * Renders the template at the location identified by the given action class:
