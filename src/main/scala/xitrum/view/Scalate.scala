@@ -10,6 +10,7 @@ import com.esotericsoftware.reflectasm.ConstructorAccess
 import org.jboss.netty.handler.codec.serialization.ClassResolvers
 
 import xitrum.{Config, Action, Log}
+import xitrum.handler.inbound.Dispatcher
 
 class Scalate extends ScalateEngine(
   "src/main/scalate",
@@ -47,8 +48,8 @@ object ScalateEngine {
 class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: String) extends TemplateEngine with Log {
   import ScalateEngine._
 
-  private[this] var fileEngine   = createEngine(true,  allowReload)
-  private[this] var stringEngine = createEngine(false, false)
+  private[this] val fileEngine   = createEngine(true,  allowReload)
+  private[this] val stringEngine = createEngine(false, false)
 
   private def createEngine(allowCaching: Boolean, allowReload: Boolean): STE = {
     val ret          = new STE
@@ -71,15 +72,9 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
 
   def start() {}
 
-  def stop() {}
-
-  // This method is only called in development mode, thus synchronization for
-  // the engines is not needed.
-  def reloadOnNextRender() {
+  def stop() {
     fileEngine.shutdown()
     stringEngine.shutdown()
-    fileEngine   = createEngine(true,  allowReload)
-    stringEngine = createEngine(false, false)
   }
 
   /**
@@ -138,6 +133,10 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
 
   /** @param templateType jade, mustache, scaml, or ssp */
   def renderString(templateContent: String, templateType: String)(implicit currentAction: Action): String = {
+    // Set the class loader every time we render, because devClassLoader may
+    // have been changed in development mode
+    if (!Config.productionMode) stringEngine.classLoader = Dispatcher.devClassLoader
+
     val templateUri            = "scalate." + templateType
     val (context, buffer, out) = createContext(templateUri, stringEngine, currentAction)
     val template               = new StringTemplateSource(templateUri, templateContent)
@@ -156,6 +155,10 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
    * @param currentAction Will be imported in the template as "helper"
    */
   def renderTemplateFile(templateFile: String)(implicit currentAction: Action): String = {
+    // Set the class loader every time we render, because devClassLoader may
+    // have been changed in development mode
+    if (!Config.productionMode) fileEngine.classLoader = Dispatcher.devClassLoader
+
     val (context, buffer, out) = createContext(templateFile, fileEngine, currentAction)
     fileEngine.layout(templateFile, context)
     out.close()
@@ -170,6 +173,10 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
    * @param currentAction Will be imported in the template as "helper"
    */
   def renderTemplate(template: Template, templateUri: String = "precompiled_template")(implicit currentAction: Action): String = {
+    // Set the class loader every time we render, because devClassLoader may
+    // have been changed in development mode
+    if (!Config.productionMode) fileEngine.classLoader = Dispatcher.devClassLoader
+
     val (context, buffer, out) = createContext(templateUri, fileEngine, currentAction)
     fileEngine.layout(template, context)
     out.close()
