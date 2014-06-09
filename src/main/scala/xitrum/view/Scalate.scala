@@ -55,7 +55,12 @@ object ScalateEngine {
 class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: String) extends TemplateEngine with Log {
   import ScalateEngine._
 
-  private[this] val fileEngine   = createEngine(true,  allowReload)
+  // In development mode, fileEngine should not cache classes to avoid error
+  // like this when classes are reloaded:
+  // java.lang.ClassCastException: demos.action.Article cannot be cast to demos.action.Article
+  private[this] val fileEngine = createEngine(Config.productionMode, allowReload)
+
+  // No need to cache or reload for stringEngine.
   private[this] val stringEngine = createEngine(false, false)
 
   private def createEngine(allowCaching: Boolean, allowReload: Boolean): STE = {
