@@ -12,6 +12,10 @@ import org.jboss.netty.handler.codec.serialization.ClassResolvers
 import xitrum.{Config, Action, Log}
 import xitrum.handler.inbound.Dispatcher
 
+/**
+ * This class is intended for use only by Xitrum. Apps that want to create
+ * additional Scalate template engine instances can use ScalateEngine.
+ */
 class Scalate extends ScalateEngine(
   "src/main/scalate",
   !Config.productionMode,
@@ -42,6 +46,9 @@ object ScalateEngine {
 }
 
 /**
+ * This class is intended for use by both Xitrum and normal apps to create
+ * additional Scalate template engine instances.
+ *
  * @param allowReload Template files in templateDir will be reloaded every time
  * @param defaultType "jade", "mustache", "scaml", or "ssp"
  */
@@ -160,9 +167,12 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
     if (!Config.productionMode) fileEngine.classLoader = Dispatcher.devClassLoader
 
     val (context, buffer, out) = createContext(templateFile, fileEngine, currentAction)
-    fileEngine.layout(templateFile, context)
-    out.close()
-    buffer.toString
+    try {
+      fileEngine.layout(templateFile, context)
+      buffer.toString
+    } finally {
+      out.close()
+    }
   }
 
   /**
@@ -178,9 +188,12 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
     if (!Config.productionMode) fileEngine.classLoader = Dispatcher.devClassLoader
 
     val (context, buffer, out) = createContext(templateUri, fileEngine, currentAction)
-    fileEngine.layout(template, context)
-    out.close()
-    buffer.toString
+    try {
+      fileEngine.layout(template, context)
+      buffer.toString
+    } finally {
+      out.close()
+    }
   }
 
   //----------------------------------------------------------------------------
