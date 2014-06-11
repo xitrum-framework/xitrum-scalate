@@ -1,4 +1,4 @@
-Xitrum allows you to choose template engines.
+`Xitrum <http://xitrum-framework.github.io/>`_ allows you to choose template engines.
 This library is a template engine for Xitrum.
 It wraps `Scalate <http://scalate.fusesource.org/>`_.
 
