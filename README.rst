@@ -20,7 +20,7 @@ Edit build.sbt:
 ::
 
   // Template engine for Xitrum
-  libraryDependencies += "tv.cntt" %% "xitrum-scalate" % "1.10"
+  libraryDependencies += "tv.cntt" %% "xitrum-scalate" % "2.0"
 
   // Precompile Scalate templates
   seq(scalateSettings:_*)
