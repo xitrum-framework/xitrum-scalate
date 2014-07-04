@@ -49,6 +49,7 @@ object ScalateEngine {
   val CONTEXT_BINDING_ID = "context"
   val CLASS_RESOLVER     = ClassResolvers.softCachingConcurrentResolver(getClass.getClassLoader)
 
+  System.setProperty("scalate.workdir", Config.xitrum.tmpDir.getAbsolutePath + File.separator + "scalate")
   ScamlOptions.ugly = Config.productionMode
 }
 
@@ -71,10 +72,7 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
   private[this] val stringEngine = createEngine(false, false)
 
   private def createEngine(allowCaching: Boolean, allowReload: Boolean): STE = {
-    val ret = new STE
-    val tpe = if (allowCaching) "file" else "string"
-    log.info(s"Scalate src ($tpe engine): " + ret.sourceDirectory.getAbsolutePath)
-
+    val ret          = new STE
     ret.classLoader  = DevClassLoader.classLoader
     ret.allowCaching = allowCaching
     ret.allowReload  = allowReload
