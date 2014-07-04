@@ -9,8 +9,7 @@ import org.fusesource.scalate.support.StringTemplateSource
 import com.esotericsoftware.reflectasm.ConstructorAccess
 import org.jboss.netty.handler.codec.serialization.ClassResolvers
 
-import xitrum.{Config, Action, Log}
-import xitrum.handler.inbound.Dispatcher
+import xitrum.{Config, Action, DevClassLoader, Log}
 
 /**
  * This class is intended for use only by Xitrum. Apps that want to create
@@ -68,7 +67,7 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
     ret.allowCaching = allowCaching
     ret.allowReload  = allowReload
 
-    if (!Config.productionMode) ret.classLoader = Dispatcher.devClassLoader
+    if (!Config.productionMode) ret.classLoader = DevClassLoader.classLoader
 
     ret.bindings = List(
       // import things in the current action
@@ -149,7 +148,7 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
   def renderString(templateContent: String, templateType: String)(implicit currentAction: Action): String = {
     // In development mode, set the class loader every time we render, because
     // devClassLoader may have changed
-    if (!Config.productionMode) stringEngine.classLoader = Dispatcher.devClassLoader
+    if (!Config.productionMode) stringEngine.classLoader = DevClassLoader.classLoader
 
     val templateUri            = "scalate." + templateType
     val (context, buffer, out) = createContext(templateUri, stringEngine, currentAction)
@@ -170,8 +169,8 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
    */
   def renderTemplateFile(templateFile: String)(implicit currentAction: Action): String = {
     // In development mode, reset cache when devClassLoader changes
-    if (!Config.productionMode && fileEngine.classLoader != Dispatcher.devClassLoader) {
-      fileEngine.classLoader = Dispatcher.devClassLoader
+    if (!Config.productionMode && fileEngine.classLoader != DevClassLoader.classLoader) {
+      fileEngine.classLoader = DevClassLoader.classLoader
       fileEngine.invalidateCachedTemplates()
     }
 
@@ -193,8 +192,8 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
    */
   def renderTemplate(template: Template, templateUri: String = "precompiled_template")(implicit currentAction: Action): String = {
     // In development mode, reset cache when devClassLoader changes
-    if (!Config.productionMode && fileEngine.classLoader != Dispatcher.devClassLoader) {
-      fileEngine.classLoader = Dispatcher.devClassLoader
+    if (!Config.productionMode && fileEngine.classLoader != DevClassLoader.classLoader) {
+      fileEngine.classLoader = DevClassLoader.classLoader
       fileEngine.invalidateCachedTemplates()
     }
 
