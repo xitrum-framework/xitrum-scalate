@@ -1,10 +1,11 @@
 package xitrum.view
 
 import java.io.{File, PrintWriter, StringWriter}
+import java.text.{DateFormat, NumberFormat}
+import java.util.Locale
 
 import org.fusesource.scalate.{Binding, DefaultRenderContext, RenderContext, Template, TemplateEngine => STE}
 import org.fusesource.scalate.scaml.ScamlOptions
-import org.fusesource.scalate.support.StringTemplateSource
 
 import com.esotericsoftware.reflectasm.ConstructorAccess
 import org.jboss.netty.handler.codec.serialization.ClassResolvers
@@ -37,7 +38,7 @@ class Scalate extends ScalateEngine(
     DevClassLoader.onReload(onReload)
   }
 
-  private val onReload: (ClassLoader) => Unit = { cl =>
+  protected val onReload: (ClassLoader) => Unit = { cl =>
     DevClassLoader.removeOnReload(onReload)
     Config.xitrum.template = TemplateEngine.loadFromConfig()
     (new Thread { override def run() { Scalate.this.stop() } }).start()
@@ -60,18 +61,25 @@ object ScalateEngine {
  * @param allowReload Template files in templateDir will be reloaded every time
  * @param defaultType "jade", "mustache", "scaml", or "ssp"
  */
-class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: String) extends TemplateEngine with Log {
+class ScalateEngine(
+  templateDir: String, allowReload: Boolean, defaultType: String
+) extends TemplateEngine
+  with ScalateEngineRenderInterface
+  with ScalateEngineRenderTemplate
+  with ScalateEngineRenderString
+  with Log
+{
   import ScalateEngine._
 
   // In development mode, when devClassLoader changes, fileEngine.invalidateCachedTemplates
   // will be called to avoid error like this when classes are reloaded:
   // java.lang.ClassCastException: demos.action.Article cannot be cast to demos.action.Article
-  private[this] val fileEngine = createEngine(true, allowReload)
+  protected[this] val fileEngine = createEngine(true, allowReload)
 
   // No need to cache or reload for stringEngine.
-  private[this] val stringEngine = createEngine(false, false)
+  protected[this] val stringEngine = createEngine(false, false)
 
-  private def createEngine(allowCaching: Boolean, allowReload: Boolean): STE = {
+  protected def createEngine(allowCaching: Boolean, allowReload: Boolean): STE = {
     val ret          = new STE
     ret.classLoader  = DevClassLoader.classLoader
     ret.allowCaching = allowCaching
@@ -88,7 +96,7 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
   }
 
   //----------------------------------------------------------------------------
-  // TemplateEngine methods
+  // TemplateEngine interface methods (see also ScalateEngineRenderInterface)
 
   def start() {}
 
@@ -97,120 +105,31 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
     stringEngine.shutdown()
   }
 
-  /**
-   * Renders the template at the location identified by the given action class:
-   * {{{<scalateDir>/<class/name/of/the/location>.<templateType>}}}
-   *
-   * Ex:
-   * When location = myapp.SiteIndex,
-   * the template path will be:
-   * src/main/scalate/myapp/SiteIndex.jade
-   *
-   * @param location      Action class used to identify the template location
-   * @param currentAction Will be imported in the template as "helper"
-   * @param options       Specific to the configured template engine
-   */
-  def renderView(location: Class[_ <: Action], currentAction: Action, options: Map[String, Any]): String = {
-    val tpe     = templateType(options)
-    val relPath = location.getName.replace('.', File.separatorChar) + "." + tpe
-    renderMaybePrecompiledFile(relPath, currentAction)
-  }
-
-  /**
-   * Renders the template at the location identified by the package of the given
-   * action class and the given fragment:
-   * {{{<scalateDir>/<package/name/of/the/location>/_<fragment>.<templateType>}}}
-   *
-   * Ex:
-   * When location = myapp.ArticleNew, fragment = form,
-   * the template path will be:
-   * src/main/scalate/myapp/_form.jade
-   *
-   * @param location      Action class used to identify the template location
-   * @param currentAction Will be imported in the template as "helper"
-   * @param options       Specific to the configured template engine
-   */
-  def renderFragment(location: Class[_ <: Action], fragment: String, currentAction: Action, options: Map[String, Any]): String = {
-    // location.getPackage will only return a non-null value if the current
-    // ClassLoader is already aware of the package
-    val pkgElems = location.getName.split('.').dropRight(1)
-    val tpe      = templateType(options)
-    val relPath  = pkgElems.mkString(File.separator) + File.separator + "_" + fragment + "." + tpe
-    renderMaybePrecompiledFile(relPath, currentAction)
-  }
-
-  //----------------------------------------------------------------------------
-  // Additional utility methods
-
-  def renderJadeString(templateContent: String)(implicit currentAction: Action) =
-    renderString(templateContent, "jade")(currentAction)
-
-  def renderMustacheString(templateContent: String)(implicit currentAction: Action) =
-    renderString(templateContent, "mustache")(currentAction)
-
-  def renderScamlString(templateContent: String)(implicit currentAction: Action) =
-    renderString(templateContent, "scaml")(currentAction)
-
-  def renderSspString(templateContent: String)(implicit currentAction: Action) =
-    renderString(templateContent, "ssp")(currentAction)
-
-  /** @param templateType jade, mustache, scaml, or ssp */
-  def renderString(templateContent: String, templateType: String)(implicit currentAction: Action): String = {
-    val templateUri            = "scalate." + templateType
-    val (context, buffer, out) = createContext(templateUri, stringEngine, currentAction)
-    val template               = new StringTemplateSource(templateUri, templateContent)
-    stringEngine.layout(template, context)
-    out.close()
-    buffer.toString
-  }
-
-  //----------------------------------------------------------------------------
-  // Additional utility methods
-
-  /**
-   * Renders Scalate template file.
-   *
-   * @param templateFile  Absolute file path of template
-   * @param currentAction Will be imported in the template as "helper"
-   */
-  def renderTemplateFile(templateFile: String)(implicit currentAction: Action): String = {
-    val (context, buffer, out) = createContext(templateFile, fileEngine, currentAction)
-    try {
-      fileEngine.layout(templateFile, context)
-      buffer.toString
-    } finally {
-      out.close()
-    }
-  }
-
-  /**
-   * Renders precompiled Scalate template.
-   *
-   * @param template      Template object
-   * @param templateUri   URI to identify a template
-   * @param currentAction Will be imported in the template as "helper"
-   */
-  def renderTemplate(template: Template, templateUri: String = "precompiled_template")(implicit currentAction: Action): String = {
-    val (context, buffer, out) = createContext(templateUri, fileEngine, currentAction)
-    try {
-      fileEngine.layout(template, context)
-      buffer.toString
-    } finally {
-      out.close()
-    }
-  }
-
   //----------------------------------------------------------------------------
 
   /**
    * Takes out "type" from options. It shoud be one of:
    * "jade", "mustache", "scaml", or "ssp"
    */
-  private def templateType(options: Map[String, Any]): String =
+  protected def templateType(options: Map[String, Any]): String =
     options.getOrElse("type", defaultType).asInstanceOf[String]
 
-  private def createContext(
-    templateUri: String, engine: STE, currentAction: Action
+  /** Takes out "date" format from options. */
+  protected def dateFormat(options: Map[String, Any]): Option[DateFormat] =
+    options.get("date").map(_.asInstanceOf[DateFormat])
+
+  /** Takes out "number" format from options. */
+  protected def numberFormat(options: Map[String, Any]): Option[NumberFormat] =
+    options.get("number").map(_.asInstanceOf[NumberFormat])
+
+  /**
+   * If "date" (java.text.DateFormat) or "number" (java.text.NumberFormat)
+   * is not set in "options", the format corresponding to current language in
+   * "currentAction" will be used.
+   */
+  protected def createContext(
+    templateUri: String, engine: STE,
+    currentAction: Action, options: Map[String, Any]
   ): (RenderContext, StringWriter, PrintWriter) =
   {
     val buffer     = new StringWriter
@@ -233,7 +152,17 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
         attributes.update(k, v)
     }
 
+    setFormats(context, currentAction, options)
     (context, buffer, out)
+  }
+
+  protected def setFormats(context: RenderContext, currentAction: Action, options: Map[String, Any]) {
+    val lo = Locale.forLanguageTag(currentAction.language)
+    val df = dateFormat(options).getOrElse(DateFormat.getDateInstance(DateFormat.DEFAULT, lo))
+    val nf = numberFormat(options).getOrElse(NumberFormat.getInstance(lo))
+
+    context.dateFormat   = df
+    context.numberFormat = nf
   }
 
   //----------------------------------------------------------------------------
@@ -245,14 +174,14 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
    *
    * @param action Will be imported in the template as "helper"
    */
-  private def renderMaybePrecompiledFile(relPath: String, currentAction: Action): String = {
+  protected def renderMaybePrecompiledFile(relPath: String, currentAction: Action, options: Map[String, Any]): String = {
     if (Config.productionMode)
-      renderPrecompiledFile(relPath, currentAction)
+      renderPrecompiledFile(relPath, currentAction, options)
     else
-      renderNonPrecompiledFile(relPath, currentAction)
+      renderNonPrecompiledFile(relPath, currentAction, options)
   }
 
-  private def renderPrecompiledFile(relPath: String, currentAction: Action): String = {
+  protected def renderPrecompiledFile(relPath: String, currentAction: Action, options: Map[String, Any]): String = {
     // In production mode, after being precompiled,
     // quickstart/action/AppAction.jade will become
     // class scalate.quickstart.action.$_scalate_$AppAction_jade
@@ -265,17 +194,17 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
     val klass        = CLASS_RESOLVER.resolve(className)
     val template     = ConstructorAccess.get(klass).newInstance().asInstanceOf[Template]
 
-    renderTemplate(template, relPath)(currentAction)
+    renderTemplate(template, relPath, options)(currentAction)
   }
 
-  private def renderNonPrecompiledFile(relPath: String, currentAction: Action): String = {
+  protected def renderNonPrecompiledFile(relPath: String, currentAction: Action, options: Map[String, Any]): String = {
     val path = templateDir + File.separator + relPath
     val file = new File(path)
     if (file.exists) {
       renderTemplateFile(path)(currentAction)
     } else {
       // If called from a JAR library, the template may have been precompiled
-      renderPrecompiledFile(relPath, currentAction)
+      renderPrecompiledFile(relPath, currentAction, options)
     }
   }
 }
