@@ -133,8 +133,8 @@ class ScalateEngine(templateDir: String, allowReload: Boolean, defaultType: Stri
   def renderFragment(location: Class[_ <: Action], fragment: String, currentAction: Action, options: Map[String, Any]): String = {
     // location.getPackage will only return a non-null value if the current
     // ClassLoader is already aware of the package
-    val tpe      = templateType(options)
     val pkgElems = location.getName.split('.').dropRight(1)
+    val tpe      = templateType(options)
     val relPath  = pkgElems.mkString(File.separator) + File.separator + "_" + fragment + "." + tpe
     renderMaybePrecompiledFile(relPath, currentAction)
   }
