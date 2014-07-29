@@ -39,7 +39,7 @@ class Scalate extends ScalateEngine(
   }
 
   protected val onReload: (ClassLoader) => Unit = { cl =>
-    DevClassLoader.removeOnReload(onReload)
+    DevClassLoader.removeReloadHook(onReload)
     Config.xitrum.template = TemplateEngine.loadFromConfig()
     (new Thread { override def run() { Scalate.this.stop() } }).start()
   }
