@@ -10,7 +10,7 @@ import org.fusesource.scalate.scaml.ScamlOptions
 import com.esotericsoftware.reflectasm.ConstructorAccess
 import org.jboss.netty.handler.codec.serialization.ClassResolvers
 
-import xitrum.{Config, Action, DevClassLoader, Log}
+import xitrum.{Config, Action, Log}
 
 /**
  * This class is intended for use only by Xitrum. Apps that want to create
@@ -34,14 +34,6 @@ class Scalate extends ScalateEngine(
 
     // Can't warmup Scalate.renderTemplateFile:
     // https://github.com/xitrum-framework/xitrum-scalate/issues/6
-
-    DevClassLoader.onReload(onReload)
-  }
-
-  protected val onReload: (ClassLoader) => Unit = { cl =>
-    DevClassLoader.removeReloadHook(onReload)
-    Config.xitrum.template = TemplateEngine.loadFromConfig()
-    (new Thread { override def run() { Scalate.this.stop() } }).start()
   }
 }
 
@@ -71,9 +63,6 @@ class ScalateEngine(
 {
   import ScalateEngine._
 
-  // In development mode, when devClassLoader changes, fileEngine.invalidateCachedTemplates
-  // will be called to avoid error like this when classes are reloaded:
-  // java.lang.ClassCastException: demos.action.Article cannot be cast to demos.action.Article
   protected[this] val fileEngine = createEngine(true, allowReload)
 
   // No need to cache or reload for stringEngine.
@@ -81,7 +70,6 @@ class ScalateEngine(
 
   protected def createEngine(allowCaching: Boolean, allowReload: Boolean): STE = {
     val ret          = new STE
-    ret.classLoader  = DevClassLoader.classLoader
     ret.allowCaching = allowCaching
     ret.allowReload  = allowReload
     ret.bindings     = List(
