@@ -26,7 +26,7 @@ Edit build.sbt:
   seq(scalateSettings:_*)
 
   ScalateKeys.scalateTemplateConfig in Compile := Seq(TemplateConfig(
-    file("src") / "main" / "scalate",
+    baseDirectory.value / "src" / "main" / "scalate",
     Seq(),
     Seq(Binding("helper", "xitrum.Controller", true))
   ))
