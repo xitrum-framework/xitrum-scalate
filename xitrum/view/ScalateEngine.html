@@ -1,0 +1,1082 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>ScalateEngine - xitrum.view.ScalateEngine</title>
+          <meta name="description" content="ScalateEngine - xitrum.view.ScalateEngine" />
+          <meta name="keywords" content="ScalateEngine xitrum.view.ScalateEngine" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../lib/template.js"></script>
+      <script type="text/javascript" src="../../lib/tools.tooltip.js"></script>
+      <script type="text/javascript" src="../../lib/modernizr.custom.js"></script><script type="text/javascript" src="../../lib/diagrams.js" id="diagrams-js"></script>
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../index.html';
+            var hash = 'xitrum.view.ScalateEngine';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="type">
+      <div id="definition">
+        <a href="ScalateEngine$.html" title="Go to companion"><img src="../../lib/class_to_object_big.png" /></a>
+        <p id="owner"><a href="../package.html" class="extype" name="xitrum">xitrum</a>.<a href="package.html" class="extype" name="xitrum.view">view</a></p>
+        <h1><a href="ScalateEngine$.html" title="Go to companion">ScalateEngine</a></h1> <span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ScalateEngine</span><span class="result"> extends <span class="extype" name="xitrum.view.TemplateEngine">TemplateEngine</span> with <a href="ScalateEngineRenderInterface.html" class="extype" name="xitrum.view.ScalateEngineRenderInterface">ScalateEngineRenderInterface</a> with <a href="ScalateEngineRenderTemplate.html" class="extype" name="xitrum.view.ScalateEngineRenderTemplate">ScalateEngineRenderTemplate</a> with <a href="ScalateEngineRenderString.html" class="extype" name="xitrum.view.ScalateEngineRenderString">ScalateEngineRenderString</a> with <span class="extype" name="xitrum.Log">Log</span></span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>This class is intended for use by both Xitrum and normal apps to create
+additional Scalate template engine instances.
+</p></div><div class="toggleContainer block">
+          <span class="toggle">Linear Supertypes</span>
+          <div class="superTypes hiddenContent"><span class="extype" name="xitrum.Log">Log</span>, <a href="ScalateEngineRenderString.html" class="extype" name="xitrum.view.ScalateEngineRenderString">ScalateEngineRenderString</a>, <a href="ScalateEngineRenderTemplate.html" class="extype" name="xitrum.view.ScalateEngineRenderTemplate">ScalateEngineRenderTemplate</a>, <a href="ScalateEngineRenderInterface.html" class="extype" name="xitrum.view.ScalateEngineRenderInterface">ScalateEngineRenderInterface</a>, <span class="extype" name="xitrum.view.TemplateEngine">TemplateEngine</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div><div class="toggleContainer block">
+            <span class="toggle">Known Subclasses</span>
+            <div class="subClasses hiddenContent"><a href="Scalate.html" class="extype" name="xitrum.view.Scalate">Scalate</a></div>
+          </div><div class="toggleContainer block diagram-container" id="inheritance-diagram-container">
+                <span class="toggle diagram-link">Type Hierarchy</span>
+                <a href="http://docs.scala-lang.org/overviews/scaladoc/usage.html#diagrams" target="_blank" class="diagram-help">Learn more about scaladoc diagrams</a>
+                <div class="diagram" id="inheritance-diagram"><svg class="class-diagram" id="graph5" viewBox="0.00 0.00 772.00 158.00" height="158pt" width="772pt" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g transform="scale(1 1) rotate(0) translate(4 154)" class="graph" id="graph1"><polygon points="-4,5 -4,-154 769,-154 769,5 -4,5" stroke="white" fill="white"></polygon><g class="cluster" id="graph2"></g><g class="cluster" id="graph3"></g><!-- node0 --><g class="node this class" id="graph5_0"><a xlink:title="xitrum.view.ScalateEngine (this class)" xlink:href="#inheritance-diagram"><polygon points="469,-88 361,-88 361,-62 469,-62 469,-88" stroke="#115f3b" fill="#0a955b"></polygon><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-72.6667" x="393" text-anchor="start">ScalateEngine</text><image xlink:href="../../lib/class_diagram.png" width="16px" height="16px" preserveAspectRatio="xMinYMin meet" x="371.0" y="-84.0001" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns=""></image></a></g><!-- node1 --><g class="node class" id="graph5_1"><a xlink:title="xitrum.view.Scalate" xlink:href="Scalate.html#inheritance-diagram"><polygon points="454,-26 376,-26 376,-1.24345e-14 454,-3.55271e-15 454,-26" stroke="#115f3b" fill="#0a955b"></polygon><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-10.6667" x="408" text-anchor="start">Scalate</text><image xlink:href="../../lib/class_diagram.png" width="16px" height="16px" preserveAspectRatio="xMinYMin meet" x="386.0" y="-22.0001" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns=""></image></a></g><!-- node0&#45;&gt;node1 --><g class="edge inheritance" id="graph5_0_1"><a xlink:title="Scalate is a subtype of ScalateEngine"><path d="M415,-56.6463C415,-46.8429 415,-35.003 415,-26.1297" stroke="#d4d4d4" fill="none"></path><polygon points="413.25,-56.8514 415,-61.8514 416.75,-56.8514 413.25,-56.8514" stroke="#d4d4d4" fill="none"></polygon></a></g><!-- node2 --><g class="node trait" id="graph5_2"><a xlink:title="xitrum.view.TemplateEngine"><polygon points="114,-150 4.9738e-14,-150 0,-124 114,-124 114,-150" stroke="#37657d" fill="#498aad"></polygon><image xlink:href="../../lib/trait_diagram.png" y="-145" x="10" preserveAspectRatio="xMinYMin meet" height="16px" width="16px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-134.667" x="32" text-anchor="start">TemplateEngine</text></a></g><!-- node2&#45;&gt;node0 --><g class="edge inheritance" id="graph5_2_0"><a xlink:title="ScalateEngine is a subtype of TemplateEngine"><path d="M119.194,-124.699C120.474,-124.462 121.743,-124.229 123,-124 205.807,-108.9 302.151,-93.069 360.834,-83.6204" stroke="#d4d4d4" fill="none"></path><polygon points="118.813,-122.99 114.219,-125.627 119.455,-126.431 118.813,-122.99" stroke="#d4d4d4" fill="none"></polygon></a></g><!-- node3 --><g class="node trait" id="graph5_3"><a xlink:title="xitrum.view.ScalateEngineRenderInterface" xlink:href="ScalateEngineRenderInterface.html#inheritance-diagram"><polygon points="308,-150 132,-150 132,-124 308,-124 308,-150" stroke="#37657d" fill="#498aad"></polygon><image xlink:href="../../lib/trait_diagram.png" y="-145" x="142" preserveAspectRatio="xMinYMin meet" height="16px" width="16px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-134.667" x="164" text-anchor="start">ScalateEngineRenderInterface</text></a></g><!-- node3&#45;&gt;node0 --><g class="edge inheritance" id="graph5_3_0"><a xlink:title="ScalateEngine is a subtype of ScalateEngineRenderInterface"><path d="M266.511,-122.212C299.235,-111.807 342.622,-98.0126 374.04,-88.0232" stroke="#d4d4d4" fill="none"></path><polygon points="265.589,-120.669 261.354,-123.851 266.65,-124.004 265.589,-120.669" stroke="#d4d4d4" fill="none"></polygon></a></g><!-- node4 --><g class="node trait" id="graph5_4"><a xlink:title="xitrum.view.ScalateEngineRenderTemplate" xlink:href="ScalateEngineRenderTemplate.html#inheritance-diagram"><polygon points="504,-150 326,-150 326,-124 504,-124 504,-150" stroke="#37657d" fill="#498aad"></polygon><image xlink:href="../../lib/trait_diagram.png" y="-145" x="336" preserveAspectRatio="xMinYMin meet" height="16px" width="16px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-134.667" x="358" text-anchor="start">ScalateEngineRenderTemplate</text></a></g><!-- node4&#45;&gt;node0 --><g class="edge inheritance" id="graph5_4_0"><a xlink:title="ScalateEngine is a subtype of ScalateEngineRenderTemplate"><path d="M415,-118.646C415,-108.843 415,-97.003 415,-88.1297" stroke="#d4d4d4" fill="none"></path><polygon points="413.25,-118.851 415,-123.851 416.75,-118.851 413.25,-118.851" stroke="#d4d4d4" fill="none"></polygon></a></g><!-- node5 --><g class="node trait" id="graph5_5"><a xlink:title="xitrum.view.ScalateEngineRenderString" xlink:href="ScalateEngineRenderString.html#inheritance-diagram"><polygon points="686,-150 522,-150 522,-124 686,-124 686,-150" stroke="#37657d" fill="#498aad"></polygon><image xlink:href="../../lib/trait_diagram.png" y="-145" x="532" preserveAspectRatio="xMinYMin meet" height="16px" width="16px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-134.667" x="554" text-anchor="start">ScalateEngineRenderString</text></a></g><!-- node5&#45;&gt;node0 --><g class="edge inheritance" id="graph5_5_0"><a xlink:title="ScalateEngine is a subtype of ScalateEngineRenderString"><path d="M558.92,-122.212C527.203,-111.807 485.151,-98.0126 454.7,-88.0232" stroke="#d4d4d4" fill="none"></path><polygon points="558.622,-123.956 563.918,-123.851 559.713,-120.63 558.622,-123.956" stroke="#d4d4d4" fill="none"></polygon></a></g><!-- node6 --><g class="node trait" id="graph5_6"><a xlink:title="xitrum.Log"><polygon points="764,-150 704,-150 704,-124 764,-124 764,-150" stroke="#37657d" fill="#498aad"></polygon><image xlink:href="../../lib/trait_diagram.png" y="-145" x="714" preserveAspectRatio="xMinYMin meet" height="16px" width="16px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-134.667" x="736" text-anchor="start">Log</text></a></g><!-- node6&#45;&gt;node0 --><g class="edge inheritance" id="graph5_6_0"><a xlink:title="ScalateEngine is a subtype of Log"><path d="M698.86,-125.022C697.561,-124.663 696.271,-124.321 695,-124 617.489,-104.415 525.952,-89.9949 469.179,-82.046" stroke="#d4d4d4" fill="none"></path><polygon points="698.608,-126.77 703.897,-126.474 699.578,-123.407 698.608,-126.77" stroke="#d4d4d4" fill="none"></polygon></a></g></g></svg></div>
+              </div></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        <div id="order">
+              <span class="filtertype">Ordering</span>
+              <ol>
+                
+                <li class="alpha in"><span>Alphabetic</span></li>
+                <li class="inherit out"><span>By inheritance</span></li>
+              </ol>
+            </div>
+        <div id="ancestors">
+                <span class="filtertype">Inherited<br />
+                </span>
+                <ol id="linearization">
+                  <li class="in" name="xitrum.view.ScalateEngine"><span>ScalateEngine</span></li><li class="in" name="xitrum.Log"><span>Log</span></li><li class="in" name="xitrum.view.ScalateEngineRenderString"><span>ScalateEngineRenderString</span></li><li class="in" name="xitrum.view.ScalateEngineRenderTemplate"><span>ScalateEngineRenderTemplate</span></li><li class="in" name="xitrum.view.ScalateEngineRenderInterface"><span>ScalateEngineRenderInterface</span></li><li class="in" name="xitrum.view.TemplateEngine"><span>TemplateEngine</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                </ol>
+              </div><div id="ancestors">
+            <span class="filtertype"></span>
+            <ol>
+              <li class="hideall out"><span>Hide All</span></li>
+              <li class="showall in"><span>Show all</span></li>
+            </ol>
+            <a href="http://docs.scala-lang.org/overviews/scaladoc/usage.html#members" target="_blank">Learn more about member selection</a>
+          </div>
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        <div id="constructors" class="members">
+              <h3>Instance Constructors</h3>
+              <ol><li name="xitrum.view.ScalateEngine#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="&lt;init&gt;(templateDir:String,allowReload:Boolean,defaultType:String):xitrum.view.ScalateEngine"></a>
+      <a id="&lt;init&gt;:ScalateEngine"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">new</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ScalateEngine</span><span class="params">(<span name="templateDir">templateDir: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="allowReload">allowReload: <span class="extype" name="scala.Boolean">Boolean</span></span>, <span name="defaultType">defaultType: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@&lt;init&gt;(templateDir:String,allowReload:Boolean,defaultType:String):xitrum.view.ScalateEngine" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">allowReload</dt><dd class="cmt"><p>Template files in templateDir will be reloaded every time</p></dd><dt class="param">defaultType</dt><dd class="cmt"><p>&quot;jade&quot;, &quot;mustache&quot;, &quot;scaml&quot;, or &quot;ssp&quot;
+</p></dd></dl></div>
+    </li></ol>
+            </div>
+
+        
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="scala.AnyRef#!=" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="!=(x$1:Any):Boolean"></a>
+      <a id="!=(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@!=(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef###" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="##():Int"></a>
+      <a id="##():Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@##():Int" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#==" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="==(x$1:Any):Boolean"></a>
+      <a id="==(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@==(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asInstanceOf[T0]:T0"></a>
+      <a id="asInstanceOf[T0]:T0"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@asInstanceOf[T0]:T0" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="clone():Object"></a>
+      <a id="clone():AnyRef"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@clone():Object" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngine#createContext" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="createContext(templateUri:String,engine:org.fusesource.scalate.TemplateEngine,currentAction:xitrum.Action,options:Map[String,Any]):(org.fusesource.scalate.RenderContext,java.io.StringWriter,java.io.PrintWriter)"></a>
+      <a id="createContext(String,org.fusesource.scalate.TemplateEngine,Action,Map[String,Any]):(RenderContext,StringWriter,PrintWriter)"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">createContext</span><span class="params">(<span name="templateUri">templateUri: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="engine">engine: <span class="extype" name="org.fusesource.scalate.TemplateEngine">org.fusesource.scalate.TemplateEngine</span></span>, <span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>, <span name="options">options: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="result">: (<span class="extype" name="org.fusesource.scalate.RenderContext">RenderContext</span>, <span class="extype" name="java.io.StringWriter">StringWriter</span>, <span class="extype" name="java.io.PrintWriter">PrintWriter</span>)</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@createContext(templateUri:String,engine:org.fusesource.scalate.TemplateEngine,currentAction:xitrum.Action,options:Map[String,Any]):(org.fusesource.scalate.RenderContext,java.io.StringWriter,java.io.PrintWriter)" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">If &quot;date&quot; (java.text.DateFormat) or &quot;number&quot; (java.text.NumberFormat)
+is not set in &quot;options&quot;, the format corresponding to current language in
+&quot;currentAction&quot; will be used.</p><div class="fullcomment"><div class="comment cmt"><p>If &quot;date&quot; (java.text.DateFormat) or &quot;number&quot; (java.text.NumberFormat)
+is not set in &quot;options&quot;, the format corresponding to current language in
+&quot;currentAction&quot; will be used.
+</p></div><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngine#createEngine" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="createEngine(allowCaching:Boolean,allowReload:Boolean):org.fusesource.scalate.TemplateEngine"></a>
+      <a id="createEngine(Boolean,Boolean):org.fusesource.scalate.TemplateEngine"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">createEngine</span><span class="params">(<span name="allowCaching">allowCaching: <span class="extype" name="scala.Boolean">Boolean</span></span>, <span name="allowReload">allowReload: <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <span class="extype" name="org.fusesource.scalate.TemplateEngine">org.fusesource.scalate.TemplateEngine</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@createEngine(allowCaching:Boolean,allowReload:Boolean):org.fusesource.scalate.TemplateEngine" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngine#dateFormat" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="dateFormat(options:Map[String,Any]):Option[java.text.DateFormat]"></a>
+      <a id="dateFormat(Map[String,Any]):Option[DateFormat]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">dateFormat</span><span class="params">(<span name="options">options: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="java.text.DateFormat">DateFormat</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@dateFormat(options:Map[String,Any]):Option[java.text.DateFormat]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Takes out &quot;date&quot; format from options.</p><div class="fullcomment"><div class="comment cmt"><p>Takes out &quot;date&quot; format from options.</p></div><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+    </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="eq(x$1:AnyRef):Boolean"></a>
+      <a id="eq(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#equals" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="equals(x$1:Any):Boolean"></a>
+      <a id="equals(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@equals(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngine#fileEngine" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="fileEngine:org.fusesource.scalate.TemplateEngine"></a>
+      <a id="fileEngine:org.fusesource.scalate.TemplateEngine"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">fileEngine</span><span class="result">: <span class="extype" name="org.fusesource.scalate.TemplateEngine">org.fusesource.scalate.TemplateEngine</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@fileEngine:org.fusesource.scalate.TemplateEngine" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[this] </dd></dl></div>
+    </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="finalize():Unit"></a>
+      <a id="finalize():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@finalize():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="symbol">classOf[java.lang.Throwable]</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getClass():Class[_]"></a>
+      <a id="getClass():Class[_]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@getClass():Class[_]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#hashCode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="hashCode():Int"></a>
+      <a id="hashCode():Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@hashCode():Int" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="xitrum.Log#log" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="log:org.slf4s.Logger"></a>
+      <a id="log:Logger"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">lazy val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">log</span><span class="result">: <span class="extype" name="org.slf4s.Logger">Logger</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@log:org.slf4s.Logger" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Log</dd></dl></div>
+    </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ne(x$1:AnyRef):Boolean"></a>
+      <a id="ne(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notify" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notify():Unit"></a>
+      <a id="notify():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@notify():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notifyAll" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notifyAll():Unit"></a>
+      <a id="notifyAll():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@notifyAll():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngine#numberFormat" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="numberFormat(options:Map[String,Any]):Option[java.text.NumberFormat]"></a>
+      <a id="numberFormat(Map[String,Any]):Option[NumberFormat]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">numberFormat</span><span class="params">(<span name="options">options: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="java.text.NumberFormat">NumberFormat</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@numberFormat(options:Map[String,Any]):Option[java.text.NumberFormat]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Takes out &quot;number&quot; format from options.</p><div class="fullcomment"><div class="comment cmt"><p>Takes out &quot;number&quot; format from options.</p></div><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngineRenderInterface#renderFragment" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="renderFragment(directory:String,fragment:String,currentAction:xitrum.Action,options:Map[String,Any]):String"></a>
+      <a id="renderFragment(String,String,Action,Map[String,Any]):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">renderFragment</span><span class="params">(<span name="directory">directory: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="fragment">fragment: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>, <span name="options">options: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@renderFragment(directory:String,fragment:String,currentAction:xitrum.Action,options:Map[String,Any]):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Renders the template at the location identified by the directory and the fragment:</p><div class="fullcomment"><div class="comment cmt"><p>Renders the template at the location identified by the directory and the fragment:</p><pre>&lt;scalateDir&gt;/&lt;path/of/directory&gt;/_&lt;fragment&gt;.&lt;templateType&gt;</pre></div><dl class="paramcmts block"><dt class="param">directory</dt><dd class="cmt"><p>Directory path that contains the fragment</p></dd><dt class="param">fragment</dt><dd class="cmt"><p>Fragment</p></dd><dt class="param">currentAction</dt><dd class="cmt"><p>Will be imported in the template as &quot;helper&quot;</p></dd><dt class="param">options</dt><dd class="cmt"><p>&quot;type&quot; -&gt; &quot;jade&quot;/&quot;mustache&quot;/&quot;scaml&quot;/&quot;ssp&quot;, &quot;date&quot; -&gt; DateFormat, &quot;number&quot; -&gt; NumberFormat
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ScalateEngineRenderInterface.html" class="extype" name="xitrum.view.ScalateEngineRenderInterface">ScalateEngineRenderInterface</a></dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngineRenderString#renderJadeString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="renderJadeString(templateContent:String,options:Map[String,Any])(implicitcurrentAction:xitrum.Action):String"></a>
+      <a id="renderJadeString(String,Map[String,Any])(Action):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">renderJadeString</span><span class="params">(<span name="templateContent">templateContent: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="options">options: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@renderJadeString(templateContent:String,options:Map[String,Any])(implicitcurrentAction:xitrum.Action):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ScalateEngineRenderString.html" class="extype" name="xitrum.view.ScalateEngineRenderString">ScalateEngineRenderString</a></dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngineRenderString#renderJadeString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="renderJadeString(templateContent:String)(implicitcurrentAction:xitrum.Action):String"></a>
+      <a id="renderJadeString(String)(Action):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">renderJadeString</span><span class="params">(<span name="templateContent">templateContent: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@renderJadeString(templateContent:String)(implicitcurrentAction:xitrum.Action):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ScalateEngineRenderString.html" class="extype" name="xitrum.view.ScalateEngineRenderString">ScalateEngineRenderString</a></dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngine#renderMaybePrecompiledFile" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="renderMaybePrecompiledFile(relPath:String,currentAction:xitrum.Action,options:Map[String,Any]):String"></a>
+      <a id="renderMaybePrecompiledFile(String,Action,Map[String,Any]):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">renderMaybePrecompiledFile</span><span class="params">(<span name="relPath">relPath: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>, <span name="options">options: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@renderMaybePrecompiledFile(relPath:String,currentAction:xitrum.Action,options:Map[String,Any]):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Production mode: Renders the precompiled template class.</p><div class="fullcomment"><div class="comment cmt"><p>Production mode: Renders the precompiled template class.
+Development mode: Renders Scalate template file relative to templateDir.
+If the file does not exist, falls back to rendering the precompiled template class.
+</p></div><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngineRenderString#renderMustacheString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="renderMustacheString(templateContent:String,options:Map[String,Any])(implicitcurrentAction:xitrum.Action):String"></a>
+      <a id="renderMustacheString(String,Map[String,Any])(Action):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">renderMustacheString</span><span class="params">(<span name="templateContent">templateContent: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="options">options: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@renderMustacheString(templateContent:String,options:Map[String,Any])(implicitcurrentAction:xitrum.Action):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ScalateEngineRenderString.html" class="extype" name="xitrum.view.ScalateEngineRenderString">ScalateEngineRenderString</a></dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngineRenderString#renderMustacheString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="renderMustacheString(templateContent:String)(implicitcurrentAction:xitrum.Action):String"></a>
+      <a id="renderMustacheString(String)(Action):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">renderMustacheString</span><span class="params">(<span name="templateContent">templateContent: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@renderMustacheString(templateContent:String)(implicitcurrentAction:xitrum.Action):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ScalateEngineRenderString.html" class="extype" name="xitrum.view.ScalateEngineRenderString">ScalateEngineRenderString</a></dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngine#renderNonPrecompiledFile" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="renderNonPrecompiledFile(relPath:String,currentAction:xitrum.Action,options:Map[String,Any]):String"></a>
+      <a id="renderNonPrecompiledFile(String,Action,Map[String,Any]):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">renderNonPrecompiledFile</span><span class="params">(<span name="relPath">relPath: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>, <span name="options">options: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@renderNonPrecompiledFile(relPath:String,currentAction:xitrum.Action,options:Map[String,Any]):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngine#renderPrecompiledFile" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="renderPrecompiledFile(relPath:String,currentAction:xitrum.Action,options:Map[String,Any]):String"></a>
+      <a id="renderPrecompiledFile(String,Action,Map[String,Any]):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">renderPrecompiledFile</span><span class="params">(<span name="relPath">relPath: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>, <span name="options">options: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@renderPrecompiledFile(relPath:String,currentAction:xitrum.Action,options:Map[String,Any]):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngineRenderString#renderScamlString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="renderScamlString(templateContent:String,options:Map[String,Any])(implicitcurrentAction:xitrum.Action):String"></a>
+      <a id="renderScamlString(String,Map[String,Any])(Action):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">renderScamlString</span><span class="params">(<span name="templateContent">templateContent: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="options">options: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@renderScamlString(templateContent:String,options:Map[String,Any])(implicitcurrentAction:xitrum.Action):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ScalateEngineRenderString.html" class="extype" name="xitrum.view.ScalateEngineRenderString">ScalateEngineRenderString</a></dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngineRenderString#renderScamlString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="renderScamlString(templateContent:String)(implicitcurrentAction:xitrum.Action):String"></a>
+      <a id="renderScamlString(String)(Action):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">renderScamlString</span><span class="params">(<span name="templateContent">templateContent: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@renderScamlString(templateContent:String)(implicitcurrentAction:xitrum.Action):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ScalateEngineRenderString.html" class="extype" name="xitrum.view.ScalateEngineRenderString">ScalateEngineRenderString</a></dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngineRenderString#renderSspString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="renderSspString(templateContent:String,options:Map[String,Any])(implicitcurrentAction:xitrum.Action):String"></a>
+      <a id="renderSspString(String,Map[String,Any])(Action):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">renderSspString</span><span class="params">(<span name="templateContent">templateContent: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="options">options: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@renderSspString(templateContent:String,options:Map[String,Any])(implicitcurrentAction:xitrum.Action):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ScalateEngineRenderString.html" class="extype" name="xitrum.view.ScalateEngineRenderString">ScalateEngineRenderString</a></dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngineRenderString#renderSspString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="renderSspString(templateContent:String)(implicitcurrentAction:xitrum.Action):String"></a>
+      <a id="renderSspString(String)(Action):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">renderSspString</span><span class="params">(<span name="templateContent">templateContent: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@renderSspString(templateContent:String)(implicitcurrentAction:xitrum.Action):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ScalateEngineRenderString.html" class="extype" name="xitrum.view.ScalateEngineRenderString">ScalateEngineRenderString</a></dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngineRenderString#renderString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="renderString(templateContent:String,templateType:String,options:Map[String,Any])(implicitcurrentAction:xitrum.Action):String"></a>
+      <a id="renderString(String,String,Map[String,Any])(Action):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">renderString</span><span class="params">(<span name="templateContent">templateContent: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="templateType">templateType: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="options">options: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@renderString(templateContent:String,templateType:String,options:Map[String,Any])(implicitcurrentAction:xitrum.Action):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">templateType</dt><dd class="cmt"><p>jade, mustache, scaml, or ssp</p></dd><dt class="param">options</dt><dd class="cmt"><p>&quot;date&quot; -&gt; DateFormat, &quot;number&quot; -&gt; NumberFormat
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ScalateEngineRenderString.html" class="extype" name="xitrum.view.ScalateEngineRenderString">ScalateEngineRenderString</a></dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngineRenderString#renderString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="renderString(templateContent:String,templateType:String)(implicitcurrentAction:xitrum.Action):String"></a>
+      <a id="renderString(String,String)(Action):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">renderString</span><span class="params">(<span name="templateContent">templateContent: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="templateType">templateType: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@renderString(templateContent:String,templateType:String)(implicitcurrentAction:xitrum.Action):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ScalateEngineRenderString.html" class="extype" name="xitrum.view.ScalateEngineRenderString">ScalateEngineRenderString</a></dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngineRenderTemplate#renderTemplate" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="renderTemplate(template:org.fusesource.scalate.Template,templateUri:String,options:Map[String,Any])(implicitcurrentAction:xitrum.Action):String"></a>
+      <a id="renderTemplate(Template,String,Map[String,Any])(Action):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">renderTemplate</span><span class="params">(<span name="template">template: <span class="extype" name="org.fusesource.scalate.Template">Template</span></span>, <span name="templateUri">templateUri: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="options">options: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@renderTemplate(template:org.fusesource.scalate.Template,templateUri:String,options:Map[String,Any])(implicitcurrentAction:xitrum.Action):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Renders precompiled Scalate template.</p><div class="fullcomment"><div class="comment cmt"><p>Renders precompiled Scalate template.
+</p></div><dl class="paramcmts block"><dt class="param">template</dt><dd class="cmt"><p>Template object</p></dd><dt class="param">templateUri</dt><dd class="cmt"><p>URI to identify a template</p></dd><dt class="param">options</dt><dd class="cmt"><p>&quot;date&quot; -&gt; DateFormat, &quot;number&quot; -&gt; NumberFormat</p></dd><dt class="param">currentAction</dt><dd class="cmt"><p>Will be imported in the template as &quot;helper&quot;
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ScalateEngineRenderTemplate.html" class="extype" name="xitrum.view.ScalateEngineRenderTemplate">ScalateEngineRenderTemplate</a></dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngineRenderTemplate#renderTemplate" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="renderTemplate(template:org.fusesource.scalate.Template,templateUri:String)(implicitcurrentAction:xitrum.Action):String"></a>
+      <a id="renderTemplate(Template,String)(Action):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">renderTemplate</span><span class="params">(<span name="template">template: <span class="extype" name="org.fusesource.scalate.Template">Template</span></span>, <span name="templateUri">templateUri: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@renderTemplate(template:org.fusesource.scalate.Template,templateUri:String)(implicitcurrentAction:xitrum.Action):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ScalateEngineRenderTemplate.html" class="extype" name="xitrum.view.ScalateEngineRenderTemplate">ScalateEngineRenderTemplate</a></dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngineRenderTemplate#renderTemplate" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="renderTemplate(template:org.fusesource.scalate.Template,options:Map[String,Any])(implicitcurrentAction:xitrum.Action):String"></a>
+      <a id="renderTemplate(Template,Map[String,Any])(Action):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">renderTemplate</span><span class="params">(<span name="template">template: <span class="extype" name="org.fusesource.scalate.Template">Template</span></span>, <span name="options">options: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@renderTemplate(template:org.fusesource.scalate.Template,options:Map[String,Any])(implicitcurrentAction:xitrum.Action):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ScalateEngineRenderTemplate.html" class="extype" name="xitrum.view.ScalateEngineRenderTemplate">ScalateEngineRenderTemplate</a></dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngineRenderTemplate#renderTemplate" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="renderTemplate(template:org.fusesource.scalate.Template)(implicitcurrentAction:xitrum.Action):String"></a>
+      <a id="renderTemplate(Template)(Action):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">renderTemplate</span><span class="params">(<span name="template">template: <span class="extype" name="org.fusesource.scalate.Template">Template</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@renderTemplate(template:org.fusesource.scalate.Template)(implicitcurrentAction:xitrum.Action):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ScalateEngineRenderTemplate.html" class="extype" name="xitrum.view.ScalateEngineRenderTemplate">ScalateEngineRenderTemplate</a></dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngineRenderTemplate#renderTemplateFile" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="renderTemplateFile(templateFile:String,options:Map[String,Any])(implicitcurrentAction:xitrum.Action):String"></a>
+      <a id="renderTemplateFile(String,Map[String,Any])(Action):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">renderTemplateFile</span><span class="params">(<span name="templateFile">templateFile: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="options">options: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@renderTemplateFile(templateFile:String,options:Map[String,Any])(implicitcurrentAction:xitrum.Action):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Renders Scalate template file.</p><div class="fullcomment"><div class="comment cmt"><p>Renders Scalate template file.
+</p></div><dl class="paramcmts block"><dt class="param">templateFile</dt><dd class="cmt"><p>Absolute file path of template</p></dd><dt class="param">options</dt><dd class="cmt"><p>&quot;date&quot; -&gt; DateFormat, &quot;number&quot; -&gt; NumberFormat</p></dd><dt class="param">currentAction</dt><dd class="cmt"><p>Will be imported in the template as &quot;helper&quot;
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ScalateEngineRenderTemplate.html" class="extype" name="xitrum.view.ScalateEngineRenderTemplate">ScalateEngineRenderTemplate</a></dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngineRenderTemplate#renderTemplateFile" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="renderTemplateFile(templateFile:String)(implicitcurrentAction:xitrum.Action):String"></a>
+      <a id="renderTemplateFile(String)(Action):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">renderTemplateFile</span><span class="params">(<span name="templateFile">templateFile: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@renderTemplateFile(templateFile:String)(implicitcurrentAction:xitrum.Action):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ScalateEngineRenderTemplate.html" class="extype" name="xitrum.view.ScalateEngineRenderTemplate">ScalateEngineRenderTemplate</a></dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngineRenderInterface#renderView" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="renderView(path:String,currentAction:xitrum.Action,options:Map[String,Any]):String"></a>
+      <a id="renderView(String,Action,Map[String,Any]):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">renderView</span><span class="params">(<span name="path">path: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>, <span name="options">options: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@renderView(path:String,currentAction:xitrum.Action,options:Map[String,Any]):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Renders the template at the location identified by the template path:</p><div class="fullcomment"><div class="comment cmt"><p>Renders the template at the location identified by the template path:</p><pre>&lt;scalateDir&gt;/&lt;path/of/template&gt;.&lt;templateType&gt;</pre></div><dl class="paramcmts block"><dt class="param">path</dt><dd class="cmt"><p>Template path</p></dd><dt class="param">currentAction</dt><dd class="cmt"><p>Will be imported in the template as &quot;helper&quot;</p></dd><dt class="param">options</dt><dd class="cmt"><p>&quot;type&quot; -&gt; &quot;jade&quot;/&quot;mustache&quot;/&quot;scaml&quot;/&quot;ssp&quot;, &quot;date&quot; -&gt; DateFormat, &quot;number&quot; -&gt; NumberFormat
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ScalateEngineRenderInterface.html" class="extype" name="xitrum.view.ScalateEngineRenderInterface">ScalateEngineRenderInterface</a></dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngine#setFormats" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="setFormats(context:org.fusesource.scalate.RenderContext,currentAction:xitrum.Action,options:Map[String,Any]):Unit"></a>
+      <a id="setFormats(RenderContext,Action,Map[String,Any]):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">setFormats</span><span class="params">(<span name="context">context: <span class="extype" name="org.fusesource.scalate.RenderContext">RenderContext</span></span>, <span name="currentAction">currentAction: <span class="extype" name="xitrum.Action">Action</span></span>, <span name="options">options: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@setFormats(context:org.fusesource.scalate.RenderContext,currentAction:xitrum.Action,options:Map[String,Any]):Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngine#start" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="start():Unit"></a>
+      <a id="start():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">start</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@start():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="xitrum.view.ScalateEngine">ScalateEngine</a> → TemplateEngine</dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngine#stop" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="stop():Unit"></a>
+      <a id="stop():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">stop</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@stop():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="xitrum.view.ScalateEngine">ScalateEngine</a> → TemplateEngine</dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngine#stringEngine" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="stringEngine:org.fusesource.scalate.TemplateEngine"></a>
+      <a id="stringEngine:org.fusesource.scalate.TemplateEngine"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">stringEngine</span><span class="result">: <span class="extype" name="org.fusesource.scalate.TemplateEngine">org.fusesource.scalate.TemplateEngine</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@stringEngine:org.fusesource.scalate.TemplateEngine" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[this] </dd></dl></div>
+    </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
+      <a id="synchronized[T0](⇒T0):T0"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="xitrum.view.ScalateEngine#templateType" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="templateType(options:Map[String,Any]):String"></a>
+      <a id="templateType(Map[String,Any]):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">templateType</span><span class="params">(<span name="options">options: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@templateType(options:Map[String,Any]):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Takes out &quot;type&quot; from options.</p><div class="fullcomment"><div class="comment cmt"><p>Takes out &quot;type&quot; from options. It shoud be one of:
+&quot;jade&quot;, &quot;mustache&quot;, &quot;scaml&quot;, or &quot;ssp&quot;
+</p></div><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+    </li><li name="scala.AnyRef#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toString():String"></a>
+      <a id="toString():String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@toString():String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait():Unit"></a>
+      <a id="wait():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@wait():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long,x$2:Int):Unit"></a>
+      <a id="wait(Long,Int):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long):Unit"></a>
+      <a id="wait(Long):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#xitrum.view.ScalateEngine@wait(x$1:Long):Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        <div class="parent" name="xitrum.Log">
+              <h3>Inherited from <span class="extype" name="xitrum.Log">Log</span></h3>
+            </div><div class="parent" name="xitrum.view.ScalateEngineRenderString">
+              <h3>Inherited from <a href="ScalateEngineRenderString.html" class="extype" name="xitrum.view.ScalateEngineRenderString">ScalateEngineRenderString</a></h3>
+            </div><div class="parent" name="xitrum.view.ScalateEngineRenderTemplate">
+              <h3>Inherited from <a href="ScalateEngineRenderTemplate.html" class="extype" name="xitrum.view.ScalateEngineRenderTemplate">ScalateEngineRenderTemplate</a></h3>
+            </div><div class="parent" name="xitrum.view.ScalateEngineRenderInterface">
+              <h3>Inherited from <a href="ScalateEngineRenderInterface.html" class="extype" name="xitrum.view.ScalateEngineRenderInterface">ScalateEngineRenderInterface</a></h3>
+            </div><div class="parent" name="xitrum.view.TemplateEngine">
+              <h3>Inherited from <span class="extype" name="xitrum.view.TemplateEngine">TemplateEngine</span></h3>
+            </div><div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
+            </div>
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>
