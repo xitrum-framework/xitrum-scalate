@@ -75,3 +75,13 @@ Ex:
   val template = "p This Jade template is from a string, not from a file."
   val string   = scalate.renderJadeString(template)
   respondInlineView(string)
+
+Log
+~~~
+
+To avoid unnecessary log, you should add these to config/logback.xml:
+
+::
+
+  <logger name="org.fusesource.scalate" level="INFO"/>
+  <logger name="org.fusesource.scalate.util.ClassPathBuilder" level="ERROR"/>
