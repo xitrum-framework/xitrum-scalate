@@ -79,6 +79,19 @@ where ``lo`` is ``java.util.Locale.forLanguageTag(currentAction.language)``.
 
   renderView(Map("date" -> myNumberFormat)
 
+If you want to display an integer number as is, without any number format,
+instead of (Jade example):
+
+::
+
+  = myObject.myInt
+
+Use:
+
+::
+
+  = myObject.myInt.toString
+
 Other utility methods
 ~~~~~~~~~~~~~~~~~~~~~
 
