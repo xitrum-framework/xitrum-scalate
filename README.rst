@@ -45,8 +45,8 @@ Edit xitrum.conf:
     ...
   }
 
-defaultType
-~~~~~~~~~~~
+"type" option
+~~~~~~~~~~~~~
 
 In xitrum.conf, you config "defaultType" (see above).
 
@@ -56,6 +56,28 @@ than the defaultType, set the last argument (options) like this:
 ::
 
    renderView(Map("type" -> "mustache")
+
+"date" option
+~~~~~~~~~~~~~
+
+If you don't specify `DateFormat <http://docs.oracle.com/javase/7/docs/api/java/text/DateFormat.html>`_,
+``java.text.DateFormat.getDateInstance(DateFormat.DEFAULT, lo)`` will be used,
+where ``lo`` is ``java.util.Locale.forLanguageTag(currentAction.language)``.
+
+::
+
+  renderView(Map("date" -> myDateFormat)
+
+"number" option
+~~~~~~~~~~~~~~~
+
+If you don't specify `NumberFormat <http://docs.oracle.com/javase/7/docs/api/java/text/NumberFormat.html>`_,
+``java.text.NumberFormat.getInstance(lo)`` will be used,
+where ``lo`` is ``java.util.Locale.forLanguageTag(currentAction.language)``.
+
+::
+
+  renderView(Map("date" -> myNumberFormat)
 
 Other utility methods
 ~~~~~~~~~~~~~~~~~~~~~
