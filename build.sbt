@@ -2,7 +2,7 @@ organization := "tv.cntt"
 
 name := "xitrum-scalate"
 
-version := "2.4-SNAPSHOT"
+version := "2.5-SNAPSHOT"
 
 scalaVersion := "2.11.6"
 //scalaVersion := "2.10.5"
@@ -20,13 +20,13 @@ resolvers += "SonatypeReleases" at "http://oss.sonatype.org/content/repositories
 
 libraryDependencies += "tv.cntt" %% "xitrum" % "3.23" % "provided"
 
-libraryDependencies += "org.scalatra.scalate" %% "scalate-core" % "1.7.0"
+libraryDependencies += "org.scalatra.scalate" %% "scalate-core" % "1.7.1"
 
 // For Markdown
 libraryDependencies += "org.scalatra.scalate" %% "scalamd" % "1.6.1"
 
 //------------------------------------------------------------------------------
-// Scalate 1.7.0 uses scala-compiler 2.11.0, which in turn uses scala-reflect 2.11.0.
+// Scalate 1.7.1 uses scala-compiler 2.11.0, which in turn uses scala-reflect 2.11.0.
 // Force a newer version, scalaVersion above.
 //
 // However, Xitrum uses JSON4S, which in turn uses scalap 2.11.0, which in turn
