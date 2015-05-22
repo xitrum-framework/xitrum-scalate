@@ -1,6 +1,6 @@
 `Xitrum <http://xitrum-framework.github.io/>`_ allows you to choose template engines.
 This library is a template engine for Xitrum.
-It wraps `Scalate <http://scalate.fusesource.org/>`_.
+It wraps `Scalate <http://scalate.github.io/scalate/>`_.
 
 See CHANGELOG to know which version of xitrum-scalate to use for which version
 of Xitrum.
