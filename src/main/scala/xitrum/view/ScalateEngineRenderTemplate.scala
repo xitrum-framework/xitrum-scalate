@@ -30,13 +30,13 @@ trait ScalateEngineRenderTemplate {
   //----------------------------------------------------------------------------
 
   def renderTemplate(template: Template)(implicit currentAction: Action): String =
-    renderTemplate(template, "precompiled_template", Map.empty)(currentAction)
+    renderTemplate(template, "precompiled_template", Map.empty[String, Any])(currentAction)
 
   def renderTemplate(template: Template, options: Map[String, Any])(implicit currentAction: Action): String =
     renderTemplate(template, "precompiled_template", options)(currentAction)
 
   def renderTemplate(template: Template, templateUri: String)(implicit currentAction: Action): String =
-    renderTemplate(template, templateUri, Map.empty)(currentAction)
+    renderTemplate(template, templateUri, Map.empty[String, Any])(currentAction)
 
   /**
    * Renders precompiled Scalate template.

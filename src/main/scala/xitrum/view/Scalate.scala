@@ -14,15 +14,16 @@ import xitrum.{Config, Action, Log}
 
 /**
  * This class is intended for use only by Xitrum. Apps that want to create
- * additional Scalate template engine instances can use ScalateEngine.
+ * additional Scalate template engine instances can use [[ScalateEngine]].
  */
 class Scalate extends ScalateEngine(
   "src/main/scalate",
   !Config.productionMode,
   Config.xitrum.config.getString("template.\"" + classOf[Scalate].getName + "\".defaultType")
 ) {
-  // Scalate takes several seconds to initialize => Warm it up here
   override def start() {
+    // Scalate takes several seconds to initialize => Warm it up here
+
     val dummyAction = new Action {
       def execute() {}
     }
@@ -63,10 +64,10 @@ class ScalateEngine(
 {
   import ScalateEngine._
 
-  protected[this] val fileEngine = createEngine(true, allowReload)
+  protected[this] val fileEngine = createEngine(allowCaching = true, allowReload)
 
   // No need to cache or reload for stringEngine.
-  protected[this] val stringEngine = createEngine(false, false)
+  protected[this] val stringEngine = createEngine(allowCaching = false, allowReload = false)
 
   protected def createEngine(allowCaching: Boolean, allowReload: Boolean): STE = {
     val ret          = new STE
@@ -74,10 +75,10 @@ class ScalateEngine(
     ret.allowReload  = allowReload
     ret.bindings     = List(
       // import things in the current action
-      Binding(ACTION_BINDING_ID, classOf[Action].getName, true),
+      Binding(ACTION_BINDING_ID, classOf[Action].getName, importMembers = true),
 
       // import Scalate utilities like "unescape"
-      Binding(CONTEXT_BINDING_ID, classOf[RenderContext].getName, true)
+      Binding(CONTEXT_BINDING_ID, classOf[RenderContext].getName, importMembers = true)
     )
 
     ret
@@ -86,9 +87,9 @@ class ScalateEngine(
   //----------------------------------------------------------------------------
   // TemplateEngine interface methods (see also ScalateEngineRenderInterface)
 
-  def start() {}
+  override def start() {}
 
-  def stop() {
+  override def stop() {
     fileEngine.shutdown()
     stringEngine.shutdown()
   }
@@ -160,7 +161,7 @@ class ScalateEngine(
    * Development mode: Renders Scalate template file relative to templateDir.
    * If the file does not exist, falls back to rendering the precompiled template class.
    *
-   * @param action Will be imported in the template as "helper"
+   * @param currentAction Will be imported in the template as "helper"
    */
   protected def renderMaybePrecompiledFile(relPath: String, currentAction: Action, options: Map[String, Any]): String = {
     if (Config.productionMode)

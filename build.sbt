@@ -1,22 +1,16 @@
 organization := "tv.cntt"
 name         := "xitrum-scalate"
-version      := "2.6-SNAPSHOT"
+version      := "2.6.1-SNAPSHOT"
 
-scalaVersion := "2.11.6"
-//scalaVersion := "2.10.5"
-
-crossScalaVersions := Seq("2.11.6", "2.10.5")
+scalaVersion       := "2.11.8"
+crossScalaVersions := Seq("2.11.8")
 
 scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked")
 
-// Xitrum 3.2+ requires Java 7
-javacOptions ++= Seq("-source", "1.7", "-target", "1.7")
+// Xitrum 3.26+ requires Java 8
+javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
-// Most Scala projects are published to Sonatype, but Sonatype is not default
-// and it takes several hours to sync from Sonatype to Maven Central
-resolvers += "SonatypeReleases" at "http://oss.sonatype.org/content/repositories/releases/"
-
-libraryDependencies += "tv.cntt" %% "xitrum" % "3.23" % "provided"
+libraryDependencies += "tv.cntt" %% "xitrum" % "3.27.0" % "provided"
 
 libraryDependencies += "org.scalatra.scalate" %% "scalate-core" % "1.7.1"
 
