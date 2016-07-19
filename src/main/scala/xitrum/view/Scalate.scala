@@ -55,7 +55,7 @@ object ScalateEngine {
  * @param defaultType "jade", "mustache", "scaml", or "ssp"
  */
 class ScalateEngine(
-  templateDir: String, allowReload: Boolean, defaultType: String
+  templateDirUri: String, allowReload: Boolean, defaultType: String
 ) extends TemplateEngine
   with ScalateEngineRenderInterface
   with ScalateEngineRenderTemplate
@@ -163,18 +163,18 @@ class ScalateEngine(
    *
    * @param currentAction Will be imported in the template as "helper"
    */
-  protected def renderMaybePrecompiledFile(relPath: String, currentAction: Action, options: Map[String, Any]): String = {
+  protected def renderMaybePrecompiledFile(relUri: String, currentAction: Action, options: Map[String, Any]): String = {
     if (Config.productionMode)
-      renderPrecompiledFile(relPath, currentAction, options)
+      renderPrecompiledFile(relUri, currentAction, options)
     else
-      renderNonPrecompiledFile(relPath, currentAction, options)
+      renderNonPrecompiledFile(relUri, currentAction, options)
   }
 
-  protected def renderPrecompiledFile(relPath: String, currentAction: Action, options: Map[String, Any]): String = {
+  protected def renderPrecompiledFile(relUri: String, currentAction: Action, options: Map[String, Any]): String = {
     // In production mode, after being precompiled,
     // quickstart/action/AppAction.jade will become
     // class scalate.quickstart.action.$_scalate_$AppAction_jade
-    val withDots     = relPath.replace('/', '.').replace(File.separatorChar, '.')
+    val withDots     = relUri.replace('/', '.')
     val xs           = withDots.split('.')
     val extension    = xs.last
     val baseFileName = xs(xs.length - 2)
@@ -183,17 +183,17 @@ class ScalateEngine(
     val klass        = CLASS_RESOLVER.resolve(className)
     val template     = ConstructorAccess.get(klass).newInstance().asInstanceOf[Template]
 
-    renderTemplate(template, relPath, options)(currentAction)
+    renderTemplate(template, relUri, options)(currentAction)
   }
 
-  protected def renderNonPrecompiledFile(relPath: String, currentAction: Action, options: Map[String, Any]): String = {
-    val path = templateDir + File.separator + relPath
-    val file = new File(path)
+  protected def renderNonPrecompiledFile(relUri: String, currentAction: Action, options: Map[String, Any]): String = {
+    val uri = templateDirUri + "/" + relUri
+    val file = new File(uri)
     if (file.exists) {
-      renderTemplateFile(path)(currentAction)
+      renderTemplateFile(uri)(currentAction)
     } else {
       // If called from a JAR library, the template may have been precompiled
-      renderPrecompiledFile(relPath, currentAction, options)
+      renderPrecompiledFile(relUri, currentAction, options)
     }
   }
 }

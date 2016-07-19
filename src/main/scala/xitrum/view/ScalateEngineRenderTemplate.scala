@@ -7,20 +7,20 @@ import xitrum.Action
 trait ScalateEngineRenderTemplate {
   this: ScalateEngine =>
 
-  def renderTemplateFile(templateFile: String)(implicit currentAction: Action): String =
-    renderTemplateFile(templateFile, Map.empty)(currentAction)
+  def renderTemplateFile(templateUri: String)(implicit currentAction: Action): String =
+    renderTemplateFile(templateUri, Map.empty)(currentAction)
 
   /**
    * Renders Scalate template file.
    *
-   * @param templateFile  Absolute file path of template
+   * @param templateUri   Template file absolute URI
    * @param options       "date" -> DateFormat, "number" -> NumberFormat
    * @param currentAction Will be imported in the template as "helper"
    */
-  def renderTemplateFile(templateFile: String, options: Map[String, Any])(implicit currentAction: Action): String = {
-    val (context, buffer, out) = createContext(templateFile, fileEngine, currentAction, options)
+  def renderTemplateFile(templateUri: String, options: Map[String, Any])(implicit currentAction: Action): String = {
+    val (context, buffer, out) = createContext(templateUri, fileEngine, currentAction, options)
     try {
-      fileEngine.layout(templateFile, context)
+      fileEngine.layout(templateUri, context)
       buffer.toString
     } finally {
       out.close()
