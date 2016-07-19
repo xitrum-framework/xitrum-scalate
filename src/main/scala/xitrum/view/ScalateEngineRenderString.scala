@@ -1,5 +1,7 @@
 package xitrum.view
 
+import scala.util.control.NonFatal
+
 import org.fusesource.scalate.InvalidSyntaxException
 import org.fusesource.scalate.support.StringTemplateSource
 
@@ -48,7 +50,11 @@ trait ScalateEngineRenderString {
       stringEngine.layout(template, context)
       buffer.toString
     } catch {
-      case e: InvalidSyntaxException => throw ScalateEngine.invalidSyntaxExceptionWithErrorLine(e)
+      case e: InvalidSyntaxException =>
+        throw ScalateEngine.invalidSyntaxExceptionWithErrorLine(e)
+
+      case NonFatal(e) =>
+        throw ScalateEngine.exceptionWithErrorLine(e, templateUri, templateContent)
     } finally {
       out.close()
     }

@@ -48,11 +48,13 @@ class Scalate extends ScalateEngine(
 }
 
 object ScalateEngine {
+  val WORKDIR = Config.xitrum.tmpDir.getAbsolutePath + File.separator + "scalate"
+
   val ACTION_BINDING_ID  = "helper"
   val CONTEXT_BINDING_ID = "context"
   val CLASS_RESOLVER     = ClassResolvers.softCachingConcurrentResolver(getClass.getClassLoader)
 
-  System.setProperty("scalate.workdir", Config.xitrum.tmpDir.getAbsolutePath + File.separator + "scalate")
+  System.setProperty("scalate.workdir", WORKDIR)
   ScamlOptions.ugly = Config.productionMode
 
   /** Puts error line right in the exception message so that Xitrum can simply display it. */
@@ -66,6 +68,42 @@ object ScalateEngine {
       eWithErrorLine.source = e.source
       eWithErrorLine
     }
+  }
+
+  def exceptionWithErrorLine(e: Throwable, templateUri: String, templateContent: String = ""): Throwable = {
+    val generatedScalaFileUri = WORKDIR + "/src/" + templateUri + ".scala"
+    val file = new File(generatedScalaFileUri)
+    if (file.exists) {
+      val src       = srcWithLineNumbers(scala.io.Source.fromFile(file).getLines)
+      val errorLine = e.getStackTrace()(0).getLineNumber
+      val msg       =
+        if (templateContent.isEmpty)
+          e.toString + "\n" +
+          templateUri + "\n" +
+          generatedScalaFileUri + ":" + errorLine + "\n" +
+          src
+        else
+          e.toString + "\n" +
+          templateUri + "\n" +
+          srcWithLineNumbers(templateContent.split('\n').iterator) + "\n" +
+          generatedScalaFileUri + ":" + errorLine + "\n" +
+          src
+      new RuntimeException(msg, e)
+    } else {
+      e
+    }
+  }
+
+  def srcWithLineNumbers(lineIt: Iterator[String]): String = {
+    val builder = new StringBuilder
+    var lineNum = 1
+    while (lineIt.hasNext) {
+      builder.append("%4d  ".format(lineNum))
+      builder.append(lineIt.next)
+      builder.append("\n")
+      lineNum += 1
+    }
+    builder.toString
   }
 }
 

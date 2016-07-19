@@ -1,5 +1,7 @@
 package xitrum.view
 
+import scala.util.control.NonFatal
+
 import org.fusesource.scalate.InvalidSyntaxException
 import org.fusesource.scalate.Template
 
@@ -15,17 +17,20 @@ trait ScalateEngineRenderTemplate {
   /**
    * Renders Scalate template file.
    *
-   * @param templateUri   Template file absolute URI
    * @param options       "date" -> DateFormat, "number" -> NumberFormat
    * @param currentAction Will be imported in the template as "helper"
    */
-  def renderTemplateFile(templateUri: String, options: Map[String, Any])(implicit currentAction: Action): String = {
-    val (context, buffer, out) = createContext(templateUri, fileEngine, currentAction, options)
+  def renderTemplateFile(uri: String, options: Map[String, Any])(implicit currentAction: Action): String = {
+    val (context, buffer, out) = createContext(uri, fileEngine, currentAction, options)
     try {
-      fileEngine.layout(templateUri, context)
+      fileEngine.layout(uri, context)
       buffer.toString
     } catch {
-      case e: InvalidSyntaxException => throw ScalateEngine.invalidSyntaxExceptionWithErrorLine(e)
+      case e: InvalidSyntaxException =>
+        throw ScalateEngine.invalidSyntaxExceptionWithErrorLine(e)
+
+      case NonFatal(e) =>
+        throw ScalateEngine.exceptionWithErrorLine(e, uri)
     } finally {
       out.close()
     }

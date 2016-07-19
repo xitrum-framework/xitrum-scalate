@@ -1,5 +1,6 @@
 2.6.1:
 * #1 Log syntax error line in template source code
+* #12 Display generated .scala file when there's error
 * #16 Use / instead of File.separatorChar in template path for Scalate so that it can work on Windows
 
 2.6.0: Xitrum 3.27.0
