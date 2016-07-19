@@ -4,7 +4,16 @@ import java.io.{File, PrintWriter, StringWriter}
 import java.text.{DateFormat, NumberFormat}
 import java.util.Locale
 
-import org.fusesource.scalate.{Binding, DefaultRenderContext, RenderContext, Template, TemplateEngine => STE}
+import scala.util.parsing.input.NoPosition
+
+import org.fusesource.scalate.{
+  Binding,
+  DefaultRenderContext,
+  InvalidSyntaxException,
+  RenderContext,
+  Template,
+  TemplateEngine => STE
+}
 import org.fusesource.scalate.scaml.ScamlOptions
 
 import com.esotericsoftware.reflectasm.ConstructorAccess
@@ -45,6 +54,19 @@ object ScalateEngine {
 
   System.setProperty("scalate.workdir", Config.xitrum.tmpDir.getAbsolutePath + File.separator + "scalate")
   ScamlOptions.ugly = Config.productionMode
+
+  /** Puts error line right in the exception message so that Xitrum can simply display it. */
+  def invalidSyntaxExceptionWithErrorLine(e: InvalidSyntaxException): InvalidSyntaxException = {
+    val pos = e.pos
+    if (pos == NoPosition) {
+      e
+    } else {
+      val errorLine = e.source.uri + "\n" + pos.longString
+      val eWithErrorLine = new InvalidSyntaxException(e.brief + "\n" + errorLine, pos)
+      eWithErrorLine.source = e.source
+      eWithErrorLine
+    }
+  }
 }
 
 /**
@@ -190,7 +212,7 @@ class ScalateEngine(
     val uri = templateDirUri + "/" + relUri
     val file = new File(uri)
     if (file.exists) {
-      renderTemplateFile(uri)(currentAction)
+      renderTemplateFile(uri, options)(currentAction)
     } else {
       // If called from a JAR library, the template may have been precompiled
       renderPrecompiledFile(relUri, currentAction, options)

@@ -1,6 +1,8 @@
 package xitrum.view
 
+import org.fusesource.scalate.InvalidSyntaxException
 import org.fusesource.scalate.support.StringTemplateSource
+
 import xitrum.Action
 
 /** Additional utility methods. */
@@ -45,6 +47,8 @@ trait ScalateEngineRenderString {
       val template = new StringTemplateSource(templateUri, templateContent)
       stringEngine.layout(template, context)
       buffer.toString
+    } catch {
+      case e: InvalidSyntaxException => throw ScalateEngine.invalidSyntaxExceptionWithErrorLine(e)
     } finally {
       out.close()
     }
