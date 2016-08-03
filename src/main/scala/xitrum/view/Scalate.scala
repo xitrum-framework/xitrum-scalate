@@ -206,12 +206,8 @@ class ScalateEngine(
   }
 
   protected def setFormats(context: RenderContext, currentAction: Action, options: Map[String, Any]) {
-    val lo = Locale.forLanguageTag(currentAction.language)
-    val df = dateFormat(options).getOrElse(DateFormat.getDateInstance(DateFormat.DEFAULT, lo))
-    val nf = numberFormat(options).getOrElse(NumberFormat.getInstance(lo))
-
-    context.dateFormat   = df
-    context.numberFormat = nf
+    context.dateFormat   = dateFormat(options).getOrElse(DateFormat.getDateInstance(DateFormat.DEFAULT, currentAction.locale))
+    context.numberFormat = numberFormat(options).getOrElse(NumberFormat.getInstance(currentAction.locale))
   }
 
   //----------------------------------------------------------------------------

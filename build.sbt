@@ -1,6 +1,6 @@
 organization := "tv.cntt"
 name         := "xitrum-scalate"
-version      := "2.6.2-SNAPSHOT"
+version      := "2.7.0-SNAPSHOT"
 
 scalaVersion       := "2.11.8"
 crossScalaVersions := Seq("2.11.8")
@@ -10,7 +10,7 @@ scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked")
 // Xitrum 3.26+ requires Java 8
 javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
-libraryDependencies += "tv.cntt" %% "xitrum" % "3.27.0" % "provided"
+libraryDependencies += "tv.cntt" %% "xitrum" % "3.28.0" % "provided"
 
 libraryDependencies += "org.scalatra.scalate" %% "scalate-core" % "1.7.1"
 

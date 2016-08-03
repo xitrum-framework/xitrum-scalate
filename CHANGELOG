@@ -1,3 +1,5 @@
+2.7.0: Xitrum 3.28.0
+
 2.6.1:
 * #1 Log syntax error line in template source code
 * #12 Display generated .scala file when there's error
