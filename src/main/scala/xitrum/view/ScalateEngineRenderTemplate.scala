@@ -21,10 +21,10 @@ trait ScalateEngineRenderTemplate {
    * @param currentAction Will be imported in the template as "helper"
    */
   def renderTemplateFile(uri: String, options: Map[String, Any])(implicit currentAction: Action): String = {
-    val (context, buffer, out) = createContext(uri, fileEngine, currentAction, options)
+    val context = createContext(uri, fileEngine, currentAction, options)
     try {
       fileEngine.layout(uri, context)
-      buffer.toString
+      context.buffer.toString
     } catch {
       case e: InvalidSyntaxException =>
         throw ScalateEngine.invalidSyntaxExceptionWithErrorLine(e)
@@ -32,7 +32,7 @@ trait ScalateEngineRenderTemplate {
       case NonFatal(e) =>
         throw ScalateEngine.exceptionWithErrorLine(e, uri)
     } finally {
-      out.close()
+      context.out.close()
     }
   }
 
@@ -56,12 +56,12 @@ trait ScalateEngineRenderTemplate {
    * @param currentAction Will be imported in the template as "helper"
    */
   def renderTemplate(template: Template, templateUri: String, options: Map[String, Any])(implicit currentAction: Action): String = {
-    val (context, buffer, out) = createContext(templateUri, fileEngine, currentAction, options)
+    val context = createContext(templateUri, fileEngine, currentAction, options)
     try {
       fileEngine.layout(template, context)
-      buffer.toString
+      context.buffer.toString
     } finally {
-      out.close()
+      context.out.close()
     }
   }
 }

@@ -1,35 +1,35 @@
 package xitrum.view
 
-import java.io.{File, PrintWriter, StringWriter}
-import java.text.{DateFormat, NumberFormat}
-import java.util.Locale
+import java.io.File
+import java.text.{ DateFormat, NumberFormat }
 
+import scala.collection.mutable.ListBuffer
+import scala.util.Try
 import scala.util.parsing.input.NoPosition
 
 import org.fusesource.scalate.{
   Binding,
-  DefaultRenderContext,
   InvalidSyntaxException,
+  NoSuchViewException,
   RenderContext,
   Template,
   TemplateEngine => STE
 }
 import org.fusesource.scalate.scaml.ScamlOptions
-
-import com.esotericsoftware.reflectasm.ConstructorAccess
 import org.jboss.netty.handler.codec.serialization.ClassResolvers
 
-import xitrum.{Config, Action, Log}
+import com.esotericsoftware.reflectasm.ConstructorAccess
+
+import xitrum.{ Action, Config, Log }
 
 /**
  * This class is intended for use only by Xitrum. Apps that want to create
  * additional Scalate template engine instances can use [[ScalateEngine]].
  */
 class Scalate extends ScalateEngine(
-  "src/main/scalate",
+  ScalateEngine.DEV_TEMPLATE_DIR_URI,
   !Config.productionMode,
-  Config.xitrum.config.getString("template.\"" + classOf[Scalate].getName + "\".defaultType")
-) {
+  Config.xitrum.config.getString("template.\"" + classOf[Scalate].getName + "\".defaultType")) {
   override def start() {
     // Scalate takes several seconds to initialize => Warm it up here
 
@@ -50,9 +50,10 @@ class Scalate extends ScalateEngine(
 object ScalateEngine {
   val WORKDIR = Config.xitrum.tmpDir.getAbsolutePath + File.separator + "scalate"
 
-  val ACTION_BINDING_ID  = "helper"
+  val ACTION_BINDING_ID = "helper"
   val CONTEXT_BINDING_ID = "context"
-  val CLASS_RESOLVER     = ClassResolvers.softCachingConcurrentResolver(getClass.getClassLoader)
+  val CLASS_RESOLVER = ClassResolvers.softCachingConcurrentResolver(getClass.getClassLoader)
+  final val DEV_TEMPLATE_DIR_URI = "src/main/scalate"
 
   System.setProperty("scalate.workdir", WORKDIR)
   ScamlOptions.ugly = Config.productionMode
@@ -74,20 +75,20 @@ object ScalateEngine {
     val generatedScalaFileUri = WORKDIR + "/src/" + templateUri + ".scala"
     val file = new File(generatedScalaFileUri)
     if (file.exists) {
-      val src       = srcWithLineNumbers(scala.io.Source.fromFile(file).getLines)
+      val src = srcWithLineNumbers(scala.io.Source.fromFile(file).getLines)
       val errorLine = e.getStackTrace()(0).getLineNumber
-      val msg       =
+      val msg =
         if (templateContent.isEmpty)
           e.toString + "\n" +
-          templateUri + "\n" +
-          generatedScalaFileUri + ":" + errorLine + "\n" +
-          src
+            templateUri + "\n" +
+            generatedScalaFileUri + ":" + errorLine + "\n" +
+            src
         else
           e.toString + "\n" +
-          templateUri + "\n" +
-          srcWithLineNumbers(templateContent.split('\n').iterator) + "\n" +
-          generatedScalaFileUri + ":" + errorLine + "\n" +
-          src
+            templateUri + "\n" +
+            srcWithLineNumbers(templateContent.split('\n').iterator) + "\n" +
+            generatedScalaFileUri + ":" + errorLine + "\n" +
+            src
       new RuntimeException(msg, e)
     } else {
       e
@@ -105,6 +106,54 @@ object ScalateEngine {
     }
     builder.toString
   }
+
+  def getPrecompiledTemplateInstance(relUri: String): Template = {
+    val withDots = relUri.replace('/', '.')
+    val xs = withDots.split('.')
+    val extension = xs.last
+    val baseFileName = xs(xs.length - 2)
+    val prefix = xs.take(xs.length - 2).mkString(".")
+    val className = "scalate." + prefix + ".$_scalate_$" + baseFileName + "_" + extension
+    val klass = CLASS_RESOLVER.resolve(className)
+    ConstructorAccess.get(klass).newInstance().asInstanceOf[Template]
+  }
+
+  private def getPrecompiledScalateViewInstance(model: AnyRef, viewName: String, extension: String): Template = {
+    val classSearchList = new ListBuffer[Class[_]]()
+
+    def buildClassList(clazz: Class[_]): Unit = {
+      if (clazz != null && clazz != classOf[Object] && !classSearchList.contains(clazz)) {
+        classSearchList.append(clazz)
+        buildClassList(clazz.getSuperclass)
+        for (i <- clazz.getInterfaces) {
+          buildClassList(i)
+        }
+      }
+    }
+
+    buildClassList(model.getClass)
+
+    classSearchList.toIterator.map { klass =>
+      val withDots = s"${klass.getName}_${viewName}.${extension}"
+      Try(getPrecompiledTemplateInstance(withDots))
+    }.find(_.isSuccess)
+      .map(_.get)
+      .getOrElse(throw new NoSuchViewException(model, viewName))
+  }
+
+  private def getScalateViewInstance(templateDirUri: String, model: AnyRef, viewName: String, extension: String): String = {
+    val path = model.getClass.getName.replace(".", "/")
+    s"${templateDirUri}/${path}.${viewName}.${extension}"
+  }
+
+  def viewTemplate(model: AnyRef, engine: STE, viewName: String, templateType: String) = {
+    if (Config.productionMode) {
+      getPrecompiledScalateViewInstance(model, viewName, templateType)
+    } else {
+      val uri = getScalateViewInstance(DEV_TEMPLATE_DIR_URI, model, viewName, templateType)
+      engine.load(uri, Nil)
+    }
+  }
 }
 
 /**
@@ -115,13 +164,11 @@ object ScalateEngine {
  * @param defaultType "jade", "mustache", "scaml", or "ssp"
  */
 class ScalateEngine(
-  templateDirUri: String, allowReload: Boolean, defaultType: String
-) extends TemplateEngine
-  with ScalateEngineRenderInterface
-  with ScalateEngineRenderTemplate
-  with ScalateEngineRenderString
-  with Log
-{
+  templateDirUri: String, allowReload: Boolean, defaultType: String) extends TemplateEngine
+    with ScalateEngineRenderInterface
+    with ScalateEngineRenderTemplate
+    with ScalateEngineRenderString
+    with Log {
   import ScalateEngine._
 
   protected[this] val fileEngine = createEngine(allowCaching = true, allowReload)
@@ -130,16 +177,15 @@ class ScalateEngine(
   protected[this] val stringEngine = createEngine(allowCaching = false, allowReload = false)
 
   protected def createEngine(allowCaching: Boolean, allowReload: Boolean): STE = {
-    val ret          = new STE
+    val ret = new STE
     ret.allowCaching = allowCaching
-    ret.allowReload  = allowReload
-    ret.bindings     = List(
+    ret.allowReload = allowReload
+    ret.bindings = List(
       // import things in the current action
       Binding(ACTION_BINDING_ID, classOf[Action].getName, importMembers = true),
 
       // import Scalate utilities like "unescape"
-      Binding(CONTEXT_BINDING_ID, classOf[RenderContext].getName, importMembers = true)
-    )
+      Binding(CONTEXT_BINDING_ID, classOf[RenderContext].getName, importMembers = true))
 
     ret
   }
@@ -178,35 +224,31 @@ class ScalateEngine(
    */
   protected def createContext(
     templateUri: String, engine: STE,
-    currentAction: Action, options: Map[String, Any]
-  ): (RenderContext, StringWriter, PrintWriter) =
-  {
-    val buffer     = new StringWriter
-    val out        = new PrintWriter(buffer)
-    val context    = new DefaultRenderContext(templateUri, engine, out)
+    currentAction: Action, options: Map[String, Any]): ScalateRenderContext = {
+    val context = new ScalateRenderContext(templateUri, engine, currentAction, templateType(options))
     val attributes = context.attributes
 
     // For bindings in engine
-    attributes.update(ACTION_BINDING_ID,  currentAction)
+    attributes.update(ACTION_BINDING_ID, currentAction)
     attributes.update(CONTEXT_BINDING_ID, context)
 
     // Put action.at to context
-    currentAction.at.foreach { case (k, v) =>
-      if (k == ACTION_BINDING_ID || k == CONTEXT_BINDING_ID)
-        log.warn(
-          ACTION_BINDING_ID + " and " + CONTEXT_BINDING_ID +
-          " are reserved key names for action's \"at\""
-        )
-      else
-        attributes.update(k, v)
+    currentAction.at.foreach {
+      case (k, v) =>
+        if (k == ACTION_BINDING_ID || k == CONTEXT_BINDING_ID)
+          log.warn(
+            ACTION_BINDING_ID + " and " + CONTEXT_BINDING_ID +
+              " are reserved key names for action's \"at\"")
+        else
+          attributes.update(k, v)
     }
 
     setFormats(context, currentAction, options)
-    (context, buffer, out)
+    context
   }
 
   protected def setFormats(context: RenderContext, currentAction: Action, options: Map[String, Any]) {
-    context.dateFormat   = dateFormat(options).getOrElse(DateFormat.getDateInstance(DateFormat.DEFAULT, currentAction.locale))
+    context.dateFormat = dateFormat(options).getOrElse(DateFormat.getDateInstance(DateFormat.DEFAULT, currentAction.locale))
     context.numberFormat = numberFormat(options).getOrElse(NumberFormat.getInstance(currentAction.locale))
   }
 
@@ -230,14 +272,7 @@ class ScalateEngine(
     // In production mode, after being precompiled,
     // quickstart/action/AppAction.jade will become
     // class scalate.quickstart.action.$_scalate_$AppAction_jade
-    val withDots     = relUri.replace('/', '.')
-    val xs           = withDots.split('.')
-    val extension    = xs.last
-    val baseFileName = xs(xs.length - 2)
-    val prefix       = xs.take(xs.length - 2).mkString(".")
-    val className    = "scalate." + prefix + ".$_scalate_$" + baseFileName + "_" + extension
-    val klass        = CLASS_RESOLVER.resolve(className)
-    val template     = ConstructorAccess.get(klass).newInstance().asInstanceOf[Template]
+    val template = getPrecompiledTemplateInstance(relUri)
 
     renderTemplate(template, relUri, options)(currentAction)
   }

@@ -43,12 +43,12 @@ trait ScalateEngineRenderString {
    * @param options      "date" -> DateFormat, "number" -> NumberFormat
    */
   def renderString(templateContent: String, templateType: String, options: Map[String, Any])(implicit currentAction: Action): String = {
-    val templateUri            = "xitrum_scalate_string." + templateType
-    val (context, buffer, out) = createContext(templateUri, stringEngine, currentAction, options)
+    val templateUri = "xitrum_scalate_string." + templateType
+    val context     = createContext(templateUri, stringEngine, currentAction, options)
     try {
       val template = new StringTemplateSource(templateUri, templateContent)
       stringEngine.layout(template, context)
-      buffer.toString
+      context.buffer.toString
     } catch {
       case e: InvalidSyntaxException =>
         throw ScalateEngine.invalidSyntaxExceptionWithErrorLine(e)
@@ -56,8 +56,7 @@ trait ScalateEngineRenderString {
       case NonFatal(e) =>
         throw ScalateEngine.exceptionWithErrorLine(e, templateUri, templateContent)
     } finally {
-      out.close()
+      context.out.close()
     }
   }
 }
-
