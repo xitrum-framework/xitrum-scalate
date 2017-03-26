@@ -12,15 +12,15 @@ Edit your Xitrum project's project/plugins.sbt:
 
 ::
 
-  // For precompiling Scalate templates
-  addSbtPlugin("com.mojolly.scalate" % "xsbt-scalate-generator" % "0.5.0")
+  // For precompiling Scalate templates in the compile phase of SBT
+  addSbtPlugin("org.scalatra.scalate" % "sbt-scalate-precompiler" % "1.8.0.1")
 
 Edit build.sbt:
 
 ::
 
   // Template engine for Xitrum
-  libraryDependencies += "tv.cntt" %% "xitrum-scalate" % "2.7.0"
+  libraryDependencies += "tv.cntt" %% "xitrum-scalate" % "2.8.0"
 
   // Precompile Scalate templates
   seq(scalateSettings:_*)
@@ -94,7 +94,9 @@ Use:
 Other utility methods
 ~~~~~~~~~~~~~~~~~~~~~
 
-xitrum.view.Scalate also provides some utility methods so that you can easily
+You can use methods [view and collection](http://scalate.github.io/scalate/documentation/user-guide.html#Views) of Scalate.
+
+`xitrum.view.Scalate` provides some utility methods so that you can easily
 use Scalate features. See the `API doc <http://xitrum-framework.github.io/xitrum-scalate/>`_.
 
 Ex:
