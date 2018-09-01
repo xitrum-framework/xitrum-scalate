@@ -1,6 +1,6 @@
 organization := "tv.cntt"
 name         := "xitrum-scalate"
-version      := "2.8.1-SNAPSHOT"
+version      := "2.8.2-SNAPSHOT"
 
 crossScalaVersions := Seq("2.12.6", "2.11.12")
 scalaVersion       := "2.12.6"
