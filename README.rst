@@ -13,21 +13,21 @@ Edit your Xitrum project's project/plugins.sbt:
 ::
 
   // For precompiling Scalate templates in the compile phase of SBT
-  addSbtPlugin("org.scalatra.scalate" % "sbt-scalate-precompiler" % "1.8.0.1")
+  addSbtPlugin("org.scalatra.scalate" % "sbt-scalate-precompiler" % "1.9.0.0")
 
 Edit build.sbt:
 
 ::
 
   // Template engine for Xitrum
-  libraryDependencies += "tv.cntt" %% "xitrum-scalate" % "2.8.0"
+  libraryDependencies += "tv.cntt" %% "xitrum-scalate" % "2.8.1"
 
   // Precompile Scalate templates
-  seq(scalateSettings:_*)
+  import org.fusesource.scalate.ScalatePlugin._
   ScalateKeys.scalateTemplateConfig in Compile := Seq(TemplateConfig(
     baseDirectory.value / "src" / "main" / "scalate",
     Seq(),
-    Seq(Binding("helper", "xitrum.Controller", true))
+    Seq(Binding("helper", "xitrum.Action", importMembers = true))
   ))
 
 Edit xitrum.conf:
