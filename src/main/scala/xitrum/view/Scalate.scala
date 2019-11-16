@@ -16,9 +16,9 @@ import org.fusesource.scalate.{
   TemplateEngine => STE
 }
 import org.fusesource.scalate.scaml.ScamlOptions
-import org.jboss.netty.handler.codec.serialization.ClassResolvers
 
 import com.esotericsoftware.reflectasm.ConstructorAccess
+import io.netty.handler.codec.serialization.ClassResolvers
 
 import xitrum.{ Action, Config, Log }
 

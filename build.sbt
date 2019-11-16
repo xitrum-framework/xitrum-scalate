@@ -1,21 +1,21 @@
 organization := "tv.cntt"
 name         := "xitrum-scalate"
-version      := "2.8.2-SNAPSHOT"
+version      := "2.9.0-SNAPSHOT"
 
-crossScalaVersions := Seq("2.12.6", "2.11.12")
-scalaVersion       := "2.12.6"
+crossScalaVersions := Seq("2.12.10")
+scalaVersion       := "2.12.10"
 
 scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked")
 
 // Xitrum 3.26+ requires Java 8
 javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
-libraryDependencies += "tv.cntt" %% "xitrum" % "3.28.11" % "provided"
+libraryDependencies += "tv.cntt" %% "xitrum" % "3.29.0" % "provided"
 
-libraryDependencies += "org.scalatra.scalate" %% "scalate-core" % "1.9.0"
+libraryDependencies += "org.scalatra.scalate" %% "scalate-core" % "1.9.5"
 
 // For Markdown
-libraryDependencies += "org.scalatra.scalate" %% "scalamd" % "1.7.1"
+libraryDependencies += "org.scalatra.scalate" %% "scalamd" % "1.7.3"
 
 //------------------------------------------------------------------------------
 // Scalate 1.7.1 uses scala-compiler 2.11.0, which in turn uses scala-reflect 2.11.0.
