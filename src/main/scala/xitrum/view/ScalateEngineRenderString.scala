@@ -11,32 +11,32 @@ import xitrum.Action
 trait ScalateEngineRenderString {
   this: ScalateEngine =>
 
-  def renderJadeString(templateContent: String)(implicit currentAction: Action) =
+  def renderJadeString(templateContent: String)(implicit currentAction: Action): String =
     renderString(templateContent, "jade", Map.empty)(currentAction)
 
-  def renderJadeString(templateContent: String, options: Map[String, Any])(implicit currentAction: Action) =
+  def renderJadeString(templateContent: String, options: Map[String, Any])(implicit currentAction: Action): String =
     renderString(templateContent, "jade", options)(currentAction)
 
-  def renderMustacheString(templateContent: String)(implicit currentAction: Action) =
+  def renderMustacheString(templateContent: String)(implicit currentAction: Action): String =
     renderString(templateContent, "mustache", Map.empty)(currentAction)
 
-  def renderMustacheString(templateContent: String, options: Map[String, Any])(implicit currentAction: Action) =
+  def renderMustacheString(templateContent: String, options: Map[String, Any])(implicit currentAction: Action): String =
     renderString(templateContent, "mustache", options)(currentAction)
 
-  def renderScamlString(templateContent: String)(implicit currentAction: Action) =
+  def renderScamlString(templateContent: String)(implicit currentAction: Action): String =
     renderString(templateContent, "scaml", Map.empty)(currentAction)
 
-  def renderScamlString(templateContent: String, options: Map[String, Any])(implicit currentAction: Action) =
+  def renderScamlString(templateContent: String, options: Map[String, Any])(implicit currentAction: Action): String =
     renderString(templateContent, "scaml", options)(currentAction)
 
-  def renderSspString(templateContent: String)(implicit currentAction: Action) =
+  def renderSspString(templateContent: String)(implicit currentAction: Action): String =
     renderString(templateContent, "ssp", Map.empty)(currentAction)
 
-  def renderSspString(templateContent: String, options: Map[String, Any])(implicit currentAction: Action) =
+  def renderSspString(templateContent: String, options: Map[String, Any])(implicit currentAction: Action): String =
     renderString(templateContent, "ssp", options)(currentAction)
 
   def renderString(templateContent: String, templateType: String)(implicit currentAction: Action): String =
-    renderString(templateContent, templateContent, Map.empty)(currentAction)
+    renderString(templateContent, templateType, Map.empty)(currentAction)
 
   /**
    * @param templateType jade, mustache, scaml, or ssp

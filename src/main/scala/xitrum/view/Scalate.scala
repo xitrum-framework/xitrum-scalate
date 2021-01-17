@@ -1,26 +1,15 @@
 package xitrum.view
 
 import java.io.File
-import java.text.{ DateFormat, NumberFormat }
-
+import java.text.{DateFormat, NumberFormat}
 import scala.collection.mutable.ListBuffer
 import scala.util.Try
 import scala.util.parsing.input.NoPosition
-
-import org.fusesource.scalate.{
-  Binding,
-  InvalidSyntaxException,
-  NoSuchViewException,
-  RenderContext,
-  Template,
-  TemplateEngine => STE
-}
+import org.fusesource.scalate.{Binding, InvalidSyntaxException, NoSuchViewException, RenderContext, Template, TemplateEngine => STE}
 import org.fusesource.scalate.scaml.ScamlOptions
-
 import com.esotericsoftware.reflectasm.ConstructorAccess
-import io.netty.handler.codec.serialization.ClassResolvers
-
-import xitrum.{ Action, Config, Log }
+import io.netty.handler.codec.serialization.{ClassResolver, ClassResolvers}
+import xitrum.{Action, Config, Log}
 
 /**
  * This class is intended for use only by Xitrum. Apps that want to create
@@ -29,12 +18,13 @@ import xitrum.{ Action, Config, Log }
 class Scalate extends ScalateEngine(
   ScalateEngine.DEV_TEMPLATE_DIR_URI,
   !Config.productionMode,
-  Config.xitrum.config.getString("template.\"" + classOf[Scalate].getName + "\".defaultType")) {
-  override def start() {
+  Config.xitrum.config.getString("template.\"" + classOf[Scalate].getName + "\".defaultType")
+) {
+  override def start(): Unit = {
     // Scalate takes several seconds to initialize => Warm it up here
 
     val dummyAction = new Action {
-      def execute() {}
+      def execute(): Unit = {}
     }
 
     renderJadeString("")(dummyAction)
@@ -48,12 +38,15 @@ class Scalate extends ScalateEngine(
 }
 
 object ScalateEngine {
-  val WORKDIR = Config.xitrum.tmpDir.getAbsolutePath + File.separator + "scalate"
+  val WORKDIR: String = Config.xitrum.tmpDir.getAbsolutePath + File.separator + "scalate"
 
   val ACTION_BINDING_ID = "helper"
+
   val CONTEXT_BINDING_ID = "context"
-  val CLASS_RESOLVER = ClassResolvers.softCachingConcurrentResolver(getClass.getClassLoader)
-  final val DEV_TEMPLATE_DIR_URI = "src/main/scalate"
+
+  val CLASS_RESOLVER: ClassResolver = ClassResolvers.softCachingConcurrentResolver(getClass.getClassLoader)
+
+  val DEV_TEMPLATE_DIR_URI = "src/main/scalate"
 
   System.setProperty("scalate.workdir", WORKDIR)
   ScamlOptions.ugly = Config.productionMode
@@ -75,7 +68,7 @@ object ScalateEngine {
     val generatedScalaFileUri = WORKDIR + "/src/" + templateUri + ".scala"
     val file = new File(generatedScalaFileUri)
     if (file.exists) {
-      val src = srcWithLineNumbers(scala.io.Source.fromFile(file).getLines)
+      val src = srcWithLineNumbers(scala.io.Source.fromFile(file).getLines())
       val errorLine = e.getStackTrace()(0).getLineNumber
       val msg =
         if (templateContent.isEmpty)
@@ -100,7 +93,7 @@ object ScalateEngine {
     var lineNum = 1
     while (lineIt.hasNext) {
       builder.append("%4d  ".format(lineNum))
-      builder.append(lineIt.next)
+      builder.append(lineIt.next())
       builder.append("\n")
       lineNum += 1
     }
@@ -118,6 +111,15 @@ object ScalateEngine {
     ConstructorAccess.get(klass).newInstance().asInstanceOf[Template]
   }
 
+  def viewTemplate(model: AnyRef, engine: STE, viewName: String, templateType: String): Template = {
+    if (Config.productionMode) {
+      getPrecompiledScalateViewInstance(model, viewName, templateType)
+    } else {
+      val uri = getScalateViewInstance(DEV_TEMPLATE_DIR_URI, model, viewName, templateType)
+      engine.load(uri, Nil)
+    }
+  }
+
   private def getPrecompiledScalateViewInstance(model: AnyRef, viewName: String, extension: String): Template = {
     val classSearchList = new ListBuffer[Class[_]]()
 
@@ -133,8 +135,8 @@ object ScalateEngine {
 
     buildClassList(model.getClass)
 
-    classSearchList.toIterator.map { klass =>
-      val withDots = s"${klass.getName}_${viewName}.${extension}"
+    classSearchList.iterator.map { klass =>
+      val withDots = s"${klass.getName}_$viewName.$extension"
       Try(getPrecompiledTemplateInstance(withDots))
     }.find(_.isSuccess)
       .map(_.get)
@@ -143,16 +145,7 @@ object ScalateEngine {
 
   private def getScalateViewInstance(templateDirUri: String, model: AnyRef, viewName: String, extension: String): String = {
     val path = model.getClass.getName.replace(".", "/")
-    s"${templateDirUri}/${path}.${viewName}.${extension}"
-  }
-
-  def viewTemplate(model: AnyRef, engine: STE, viewName: String, templateType: String) = {
-    if (Config.productionMode) {
-      getPrecompiledScalateViewInstance(model, viewName, templateType)
-    } else {
-      val uri = getScalateViewInstance(DEV_TEMPLATE_DIR_URI, model, viewName, templateType)
-      engine.load(uri, Nil)
-    }
+    s"$templateDirUri/$path.$viewName.$extension"
   }
 }
 
@@ -171,10 +164,10 @@ class ScalateEngine(
     with Log {
   import ScalateEngine._
 
-  protected[this] val fileEngine = createEngine(allowCaching = true, allowReload)
+  protected[this] val fileEngine: STE = createEngine(allowCaching = true, allowReload)
 
   // No need to cache or reload for stringEngine.
-  protected[this] val stringEngine = createEngine(allowCaching = false, allowReload = false)
+  protected[this] val stringEngine: STE = createEngine(allowCaching = false, allowReload = false)
 
   protected def createEngine(allowCaching: Boolean, allowReload: Boolean): STE = {
     val ret = new STE
@@ -193,9 +186,9 @@ class ScalateEngine(
   //----------------------------------------------------------------------------
   // TemplateEngine interface methods (see also ScalateEngineRenderInterface)
 
-  override def start() {}
+  override def start(): Unit = {}
 
-  override def stop() {
+  override def stop(): Unit = {
     fileEngine.shutdown()
     stringEngine.shutdown()
   }
@@ -247,7 +240,7 @@ class ScalateEngine(
     context
   }
 
-  protected def setFormats(context: RenderContext, currentAction: Action, options: Map[String, Any]) {
+  protected def setFormats(context: RenderContext, currentAction: Action, options: Map[String, Any]): Unit = {
     context.dateFormat = dateFormat(options).getOrElse(DateFormat.getDateInstance(DateFormat.DEFAULT, currentAction.locale))
     context.numberFormat = numberFormat(options).getOrElse(NumberFormat.getInstance(currentAction.locale))
   }

@@ -1,18 +1,18 @@
 organization := "tv.cntt"
 name         := "xitrum-scalate"
-version      := "2.9.0-SNAPSHOT"
+version      := "2.9.1-SNAPSHOT"
 
-crossScalaVersions := Seq("2.12.10")
-scalaVersion       := "2.12.10"
+crossScalaVersions := Seq("2.13.4", "2.12.13")
+scalaVersion       := "2.13.4"
 
 scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked")
 
 // Xitrum 3.26+ requires Java 8
 javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
-libraryDependencies += "tv.cntt" %% "xitrum" % "3.29.0" % "provided"
+libraryDependencies += "tv.cntt" %% "xitrum" % "3.30.0" % "provided"
 
-libraryDependencies += "org.scalatra.scalate" %% "scalate-core" % "1.9.5"
+libraryDependencies += "org.scalatra.scalate" %% "scalate-core" % "1.9.6"
 
 // For Markdown
 libraryDependencies += "org.scalatra.scalate" %% "scalamd" % "1.7.3"
