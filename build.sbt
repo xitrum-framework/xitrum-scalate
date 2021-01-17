@@ -1,8 +1,10 @@
 organization := "tv.cntt"
 name         := "xitrum-scalate"
-version      := "2.9.1-SNAPSHOT"
+version      := "2.9.2-SNAPSHOT"
 
-crossScalaVersions := Seq("2.13.4", "2.12.13")
+// TODO Support Scala 2.12.13+
+// https://github.com/scalate/scalate/issues/309
+crossScalaVersions := Seq("2.13.4", "2.12.12")
 scalaVersion       := "2.13.4"
 
 scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked")
@@ -17,17 +19,10 @@ libraryDependencies += "org.scalatra.scalate" %% "scalate-core" % "1.9.6"
 // For Markdown
 libraryDependencies += "org.scalatra.scalate" %% "scalamd" % "1.7.3"
 
-//------------------------------------------------------------------------------
-// Scalate 1.7.1 uses scala-compiler 2.11.0, which in turn uses scala-reflect 2.11.0.
-// Force a newer version, scalaVersion above.
-//
-// However, Xitrum uses JSON4S, which in turn uses scalap 2.11.0, which in turn
-// uses scala-compiler 2.11.0. So by forcing a newer version of scalap in Xitrum,
-// we do not have to do anything here.
-
-//libraryDependencies <+= scalaVersion { sv =>
-//  "org.scala-lang" % "scala-compiler" % sv
-//}
+// Scalate is compatible with a certain versions of scala-compiler:
+// https://github.com/scalate/scalate/issues/309
+// But we can't force scala-compiler version here, as apps can override it:
+//libraryDependencies += "org.scala-lang" % "scala-compiler" % scalaVersion.value
 
 //------------------------------------------------------------------------------
 

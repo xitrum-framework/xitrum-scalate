@@ -1,3 +1,7 @@
+2.9.2:
+Specify that Scala 2.12.12 is supported, but not 2.12.13:
+https://github.com/scalate/scalate/issues/309
+
 2.9.1:
 Xitrum 3.30.0 (and Scala 2.13)
 
